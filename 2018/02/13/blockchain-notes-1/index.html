@@ -1,0 +1,2111 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Bitcoin,Blockchain,Consensus,Cryptography," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="This notes is written as my personal lecture notes taken down from the awesome lecture “Bitcoin and Cryptocurrency Technologies” provided by Princeton University on Coursera. Hope you guys find it hel">
+<meta name="keywords" content="Bitcoin,Blockchain,Consensus,Cryptography">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitcoin and Cryptocurrency Technologies Lecture 1&amp;2 Notes">
+<meta property="og:url" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/index.html">
+<meta property="og:site_name" content="Coder For Fun | Xingfan&#39;s Tech Blog">
+<meta property="og:description" content="This notes is written as my personal lecture notes taken down from the awesome lecture “Bitcoin and Cryptocurrency Technologies” provided by Princeton University on Coursera. Hope you guys find it hel">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/sha-256.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/ll_hashpointers.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/merkle%20tree.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/goofy_create_coin.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/goofy_spend_coin.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/pass_along.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/double-spending%20attack.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/scrooge_blockchain.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/createCoins%20transaction.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/PayCoins.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/bitcoin_p2p.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/consensus_candidate.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/legit_transaction.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/double_spending.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/successful%20double%20spending%20attack.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/merchant%27s%20perspective.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/honesty_incentive.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/bitcoin_supply.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/hash_puzzles.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/hash_puzzle%20distribution.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/mining_economics.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/bootstrap.png">
+<meta property="og:updated_time" content="2018-07-19T04:10:14.895Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bitcoin and Cryptocurrency Technologies Lecture 1&amp;2 Notes">
+<meta name="twitter:description" content="This notes is written as my personal lecture notes taken down from the awesome lecture “Bitcoin and Cryptocurrency Technologies” provided by Princeton University on Coursera. Hope you guys find it hel">
+<meta name="twitter:image" content="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/sha-256.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/"/>
+
+
+
+
+
+  <title>Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes | Coder For Fun | Xingfan's Tech Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-65724730-3', 'auto');
+  ga('send', 'pageview');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coder For Fun | Xingfan's Tech Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Random Stuff Randonly Updated</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-projects">
+          <a href="/projects" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code-fork"></i> <br />
+            
+            projects
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://xiax.ai" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingfan Xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coder For Fun | Xingfan's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-13T02:16:54-08:00">
+                2018-02-13
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-07-18T21:10:14-07:00">
+                2018-07-18
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/13/blockchain-notes-1/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/13/blockchain-notes-1/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/13/blockchain-notes-1/" class="leancloud_visitors" data-flag-title="Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="Words count in article">
+                  4,585
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="Reading time">
+                  29
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>This notes is written as my personal lecture notes taken down from the awesome lecture <a href="https://www.coursera.org/learn/cryptocurrency/home/info" target="_blank" rel="external">“Bitcoin and Cryptocurrency Technologies”</a> provided by Princeton University on Coursera. Hope you guys find it helpful in your learning!</p>
+<p>Grab the <a href="http://blog.xiax.ai/skip/Crypto_and_Decentralization_of_Bitcoin.pdf" target="_blank">PDF version</a> if you want better readability or archive!<br><a id="more"></a></p>
+<h1 id="Lecture-1-Basic-Cryptography-related"><a href="#Lecture-1-Basic-Cryptography-related" class="headerlink" title="Lecture 1 Basic Cryptography related"></a>Lecture 1 Basic Cryptography related</h1><h2 id="Part-1-Hash-function"><a href="#Part-1-Hash-function" class="headerlink" title="Part 1 Hash function"></a>Part 1 Hash function</h2><h3 id="Hash-function"><a href="#Hash-function" class="headerlink" title="Hash function:"></a>Hash function:</h3><ul>
+<li>Takes any string as input</li>
+<li>fixed-size output (<code>256bits</code> is what we use)</li>
+<li>efficiently computable<h3 id="Security-Properties-of-Hash-function"><a href="#Security-Properties-of-Hash-function" class="headerlink" title="Security Properties of Hash function"></a>Security Properties of Hash function</h3></li>
+<li><p><strong>collision-free</strong></p>
+<ul>
+<li>Idea: Nobody can find a pair $x,y$ s.t. $x \neq y$ yet $Hash(x) = Hash(y)$</li>
+<li>Collisions do exist<ul>
+<li>Easy to illustrate, take our <code>256 bits</code> hash function as example: there are only $2^{256}$ outputs and undefined arbitrarily large amount of input strings. There has to be collisions.</li>
+</ul>
+</li>
+<li>So the key is to avoid regular people to find these collisions</li>
+<li>Ways to find collisions<ul>
+<li>Try $2^{130}$ randomly chosen inputs, there are $99.8\%$ chance that two of them collide. But this takes too long to matter.</li>
+</ul>
+</li>
+<li>No hash functions up to now has been proven to be <strong>collision-free</strong>, it’s just too hard to find a collision so we believe it as <strong>collision-free</strong></li>
+<li>Application of <strong>collision-free</strong>: Hash as message digest<ul>
+<li>If we know $H(x) = H(y)$, we can say $x=y$ as we believe $H$ is collision-free</li>
+<li>So we can use it as a tool to compare large objects like files. Instead of comparing the whole file, we can just compare their hash which is significantly smaller. (In fact, <code>md5</code> is used to verify file integrity)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>hiding</strong></p>
+<ul>
+<li><p>Given $H(x)$, it is infeasible to find $x$.</p>
+</li>
+<li><p>No value of $x$ that is particularly likely. Set of value $x$ has to be very sparse. </p>
+</li>
+<li><p>Concatenate $x$ with another value $r$ which is from a very sparse set (or $r$ is chosen from a probability distribution that has <code>high min-entrophy</code>) to sovle this problem.<br><code>High min-entropy</code> means that the distribution is very <code>spread out</code>, so that no particular value is chosen with more than negligible probability.</p>
+<p>Then given $H(r \mid x)$, it is infeasible to find $x$.</p>
+</li>
+<li><p>Application: Commitment</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">(com, key) := commit(msg)</div><div class="line">match := verify(com, key, msg)</div><div class="line"></div><div class="line">To seal msg in envelope:</div><div class="line">  (com, key) := commit(msg) #then publish com</div><div class="line">To open envelope:</div><div class="line">  publish key, msg</div><div class="line">  anyone can use verify to check its validity</div><div class="line">  </div><div class="line">#Implementation:</div><div class="line">commit(msg) := (H(key|msg), key) where key is a random 256-bit value</div><div class="line">verify(com, key, msg) := (H(key|msg) == com)</div><div class="line"></div><div class="line">#To have such security properties:</div><div class="line">  Hiding: given (H(key|msg), infeasible to find msg</div><div class="line">  Binding: Infeasible to find msg != msg&apos; s.t. that (H(key|msg) == H(key|msg&apos;)</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+<li><p><strong>puzzle-friendly</strong></p>
+<ul>
+<li><p>For every possible output value $y$, if $k$ is chosen from a distribution with high min-entropy, then it is infeasible to find $x$ s.t. $H(k\mid x) = y$</p>
+</li>
+<li><p>Application: Search puzzle</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Given a &apos;puzzle ID&apos; id(from high min-entropy distrib) and a targe set Y, try to find a &apos;solution&apos; x s.t. H(id | x) in Y.</div></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Example-SHA-256-hash-function"><a href="#Example-SHA-256-hash-function" class="headerlink" title="Example: SHA-256 hash function"></a>Example: SHA-256 hash function</h3><p><img src="sha-256.png" alt="sha-256"></p>
+<p>Algo walkthrough:</p>
+<ol>
+<li>Take the original message and divide it up in chunks of <code>512bits​</code> size. The last block is padded with how many bits are there in the block and 0s to fill it up to <code>512bits​</code>.</li>
+<li>After the message is partitioned, we take the <code>IV</code> key which is a <code>256bits</code> string and concatenate with the first chunk of message <code>block_1</code> to be a <code>768bits</code> message chunk.</li>
+<li>Run this message chunk thru the compression algorithm <code>c</code> to produce a new <code>256bits</code> key and pass into the next execution with message <code>block_2</code></li>
+<li>Repeat until no blocks left; return hash.</li>
+</ol>
+<p><strong>Th.</strong> If <code>c</code> is collision-free, then <code>SHA-256</code> is collsiion free.</p>
+<h2 id="Part-2-Hash-pointers"><a href="#Part-2-Hash-pointers" class="headerlink" title="Part 2 Hash pointers"></a>Part 2 Hash pointers</h2><h3 id="Hash-pointer"><a href="#Hash-pointer" class="headerlink" title="Hash pointer"></a>Hash pointer</h3><ul>
+<li>Pointer to where some info is stored</li>
+<li>and cryptographic hash of the info</li>
+<li>just like normal pointers, but not only where it is stored but also the hash of its data</li>
+</ul>
+<p>With hash pointer, we can</p>
+<ul>
+<li>ask to get the info back</li>
+<li>certify that it hasn’t changed</li>
+</ul>
+<h3 id="Key-idea-Build-data-structure-with-hash-pointers"><a href="#Key-idea-Build-data-structure-with-hash-pointers" class="headerlink" title="Key idea: Build data structure with hash pointers"></a>Key idea: Build data structure with hash pointers</h3><h4 id="Example-Linkedlist-with-Hash-pointers-blockchain"><a href="#Example-Linkedlist-with-Hash-pointers-blockchain" class="headerlink" title="Example: Linkedlist with Hash pointers (blockchain)"></a>Example: Linkedlist with Hash pointers (blockchain)<img src="ll_hashpointers.png" alt="ll_hashpointers"></h4><ul>
+<li>we can build temper-evident log (If someone mess with data earlier we can detect it)</li>
+</ul>
+<h4 id="Example-binary-tree-with-hash-pointers-Merkle-tree"><a href="#Example-binary-tree-with-hash-pointers-Merkle-tree" class="headerlink" title="Example: binary tree with hash pointers (Merkle tree)"></a>Example: binary tree with hash pointers (Merkle tree)</h4><p><img src="merkle tree.png" alt="merkle tree"></p>
+<ul>
+<li>Advantages:<ul>
+<li>Holds many items but only need to remember the root hash</li>
+<li>Can verify membership in $O(\log n)$ time</li>
+</ul>
+</li>
+<li>Variant: sorted Merkle tree (binary search tree with hash pointers)<ul>
+<li>can verify non-membership in $O(\log n)$ time (Prove nothing in between)</li>
+</ul>
+</li>
+</ul>
+<h4 id="Generally"><a href="#Generally" class="headerlink" title="Generally"></a>Generally</h4><ul>
+<li>Can use hash pointers in any pointer-based data structure that has not cycles</li>
+</ul>
+<h2 id="Part-3-Digital-Signatures"><a href="#Part-3-Digital-Signatures" class="headerlink" title="Part 3 Digital Signatures"></a>Part 3 Digital Signatures</h2><h3 id="Features-of-Signatures"><a href="#Features-of-Signatures" class="headerlink" title="Features of Signatures"></a>Features of Signatures</h3><ul>
+<li>Only you can sign, but anyone can verify</li>
+<li>Signature is tied to particular document; can’t be copy-and-pasted to another document</li>
+</ul>
+<h3 id="API-for-digital-signatures"><a href="#API-for-digital-signatures" class="headerlink" title="API for digital signatures"></a>API for digital signatures</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">(sk, pk) := generateKeys(keysize)</div><div class="line">sig := sign(sk, message)</div><div class="line">isValid := verify(pk, message, sig)</div></pre></td></tr></table></figure>
+<h4 id="Requirements-for-signatures"><a href="#Requirements-for-signatures" class="headerlink" title="Requirements for signatures"></a>Requirements for signatures</h4><ul>
+<li><p>Valid signatures verify</p>
+<p><code>verify(pk, message, sign(sk,message)) == true</code></p>
+</li>
+<li><p>Can’t forge signatures</p>
+<ul>
+<li>Adversary who<ul>
+<li>knows pk</li>
+<li>gets to see signatures on messages of his choice</li>
+</ul>
+</li>
+<li>can’t produce a verifiable signature on another message</li>
+</ul>
+</li>
+</ul>
+<h4 id="Practical-stuff"><a href="#Practical-stuff" class="headerlink" title="Practical stuff"></a>Practical stuff</h4><ul>
+<li>Algorithms are randomized<ul>
+<li>good source of randomness required</li>
+</ul>
+</li>
+<li>Limit on message isze<ul>
+<li>fix: use Hash(message) rather than message</li>
+</ul>
+</li>
+<li>Fun trick: sign a hash pointer<ul>
+<li>signatures covers the whole structure (sign the entire content)</li>
+</ul>
+</li>
+<li>Bitcoins uses <code>ECDSA(Elliptic Curve Digital Signature Algorithm)</code> standard<ul>
+<li>relies on extremely complicated maths</li>
+<li>good randomness is extremely essential for ECDSA</li>
+</ul>
+</li>
+</ul>
+<h2 id="Part-4-Public-Keys-as-Identities"><a href="#Part-4-Public-Keys-as-Identities" class="headerlink" title="Part 4 Public Keys as Identities"></a>Part 4 Public Keys as Identities</h2><h3 id="Useful-trick-pulic-key-an-identity"><a href="#Useful-trick-pulic-key-an-identity" class="headerlink" title="Useful trick: pulic key == an identity"></a>Useful trick: <code>pulic key == an identity</code></h3><ul>
+<li><p>if you see <code>sig</code> s.t. <code>verify(pk, msg, sig) == true</code> ,</p>
+<p>In order to speak as <code>pk</code>, you need to have the matching private key <code>sk</code>.</p>
+</li>
+</ul>
+<h3 id="How-to-make-a-new-identity"><a href="#How-to-make-a-new-identity" class="headerlink" title="How to make a new identity"></a>How to make a new identity</h3><ul>
+<li>create a new random key-pair <code>(sk, pk)</code></li>
+<li><code>pk</code> is the pubic “name” you can use, normally <code>H(pk)</code> as <code>pk</code> is large</li>
+<li><code>sk</code> let’s you speak as <code>pk</code></li>
+<li>you control the identity because only you know <code>sk</code></li>
+<li>if <code>pk</code> looks random, nobody needs to know who you are</li>
+</ul>
+<h3 id="Decentralized-identity-management"><a href="#Decentralized-identity-management" class="headerlink" title="Decentralized identity management"></a>Decentralized identity management</h3><ul>
+<li>No need to use username, etc</li>
+<li>anyone can make a new identity anytime and make as many as wanted</li>
+<li>no central point of coordination</li>
+<li>these identities are called <code>address</code> or <code>wallet_address</code> in <code>Bitcoin</code></li>
+</ul>
+<h3 id="Privacy-how-private-it-is"><a href="#Privacy-how-private-it-is" class="headerlink" title="Privacy (how private it is)"></a>Privacy (how private it is)</h3><ul>
+<li>Addresses not directly connected to real-word identity</li>
+<li>But observer can link together an address’s activity over time, make inferences</li>
+<li>Will talk this later</li>
+</ul>
+<h2 id="Part-5-A-simple-Cryptocurrency"><a href="#Part-5-A-simple-Cryptocurrency" class="headerlink" title="Part 5 A simple Cryptocurrency"></a>Part 5 A simple Cryptocurrency</h2><h3 id="Goofy-Coin-Simplest-Cryptocurrency"><a href="#Goofy-Coin-Simplest-Cryptocurrency" class="headerlink" title="Goofy Coin: Simplest Cryptocurrency"></a>Goofy Coin: Simplest Cryptocurrency</h3><h4 id="Rules"><a href="#Rules" class="headerlink" title="Rules:"></a>Rules:</h4><ul>
+<li><p>Goofy can create new coins that belongs to him</p>
+<p><img src="goofy_create_coin.png" alt="goofy_create_coin"></p>
+<p><code>CreateCoin[uuid]</code> singed by <code>pk_goof</code></p>
+</li>
+<li><p>A coin’s owner can spend it</p>
+<p><img src="goofy_spend_coin.png" alt="goofy_spend_coin"></p>
+<ul>
+<li>make a statement <code>pay to pk_alice</code> with hash pointer signed by <code>pk_goofy</code></li>
+</ul>
+</li>
+<li><p>The recipient can pass on the coin again</p>
+<p><img src="pass_along.png" alt="pass_along"></p>
+</li>
+</ul>
+<h4 id="Problems"><a href="#Problems" class="headerlink" title="Problems"></a>Problems</h4><p>double-spending attack (one of the major design challenges)</p>
+<p><img src="double-spending attack.png" alt="double-spending attack"></p>
+<ul>
+<li>both <code>Bob</code> and <code>Chuck</code> has a valid claim on the coin</li>
+</ul>
+<h3 id="Scrooge-Coin"><a href="#Scrooge-Coin" class="headerlink" title="Scrooge Coin"></a>Scrooge Coin</h3><h4 id="Changes"><a href="#Changes" class="headerlink" title="Changes"></a>Changes</h4><ul>
+<li><p>on top of goofy coin</p>
+</li>
+<li><p>Scrooge publishes a history of all transactions(a blockchain signed by Scrooge)</p>
+<p><img src="scrooge_blockchain.png" alt="scrooge_blockchain"></p>
+</li>
+<li><p>Optimization: put multiple transactions in the same block</p>
+</li>
+<li><p>Now everyone can detect double-spending</p>
+</li>
+<li><p>New <code>CreateCoins</code> transaction</p>
+<p><img src="createCoins transaction.png" alt="createCoins transaction"></p>
+</li>
+<li><p>New <code>PayCoin</code> transaction: </p>
+<p><img src="PayCoins.png" alt="PayCoins"></p>
+<ul>
+<li>consumes some coins and creates new coins of the same total value</li>
+<li>Valid if<ul>
+<li>consumed coins valid</li>
+<li>not already consumed</li>
+<li>total value out = total value in</li>
+<li>signed by owners of all consumed coins</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>New <strong><u>Immutable</u></strong> <code>Coin</code></p>
+<ul>
+<li>Coins can’t be transferred, subdivided, or combined</li>
+<li>But you can achieve the same effect by using transactions to subdivide<ul>
+<li>Create new trans that consume your coin and pay out two new coins to yourself with a same total value</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4 id="Problem-Centralization"><a href="#Problem-Centralization" class="headerlink" title="Problem: Centralization"></a>Problem: Centralization</h4><ul>
+<li><p>Scrooge can be misbehaving</p>
+</li>
+<li><p>Scrooge have to operate his functions all the time</p>
+</li>
+<li><p>how to operate <strong>without</strong> any central, trusted party</p>
+</li>
+<li><p>Problems to solve:</p>
+<p>If we can solve all of these problems, then we can build a currency that is very much like BitCoin. Which is like ScroogeCoin but without a centralized party.</p>
+<ul>
+<li>How everyone can agree upon a single published block chain that is the agreed upon history which transactions have happened?</li>
+<li>How people can agree which transactions are valid and which transactions have actually occurred?</li>
+<li>How we can assign IDs to things in a decentralized way? </li>
+</ul>
+</li>
+</ul>
+<h4 id="Assignment-Scrooge-Coin’s-public-ledger"><a href="#Assignment-Scrooge-Coin’s-public-ledger" class="headerlink" title="Assignment: Scrooge Coin’s public ledger"></a>Assignment: Scrooge Coin’s public ledger</h4><h1 id="Lecture-2-How-Bitcoin-achieves-Decentralization"><a href="#Lecture-2-How-Bitcoin-achieves-Decentralization" class="headerlink" title="Lecture 2 How Bitcoin achieves Decentralization"></a>Lecture 2 How Bitcoin achieves Decentralization</h1><h2 id="Part-1-Centralization-vs-Decentralization"><a href="#Part-1-Centralization-vs-Decentralization" class="headerlink" title="Part 1 Centralization vs. Decentralization"></a>Part 1 Centralization vs. Decentralization</h2><h3 id="Decentralization-is-not-“all-or-nothing”"><a href="#Decentralization-is-not-“all-or-nothing”" class="headerlink" title="Decentralization is not “all-or-nothing”"></a>Decentralization is not “all-or-nothing”</h3><ul>
+<li>Email: Decentralized protocol (<code>smtp</code>), but dominated by centralized webmail services(<code>gmail</code>, <code>outlook</code>).</li>
+</ul>
+<h3 id="Questions-to-answer-about-decentralization-in-Bitcoin"><a href="#Questions-to-answer-about-decentralization-in-Bitcoin" class="headerlink" title="Questions to answer about decentralization in Bitcoin"></a>Questions to answer about decentralization in Bitcoin</h3><ul>
+<li>Who maintains the ledger?</li>
+<li>Who has authority over which transactions are valid?</li>
+<li>Who creates new bitcoins?</li>
+<li>Who determines how the rules of the system change?</li>
+<li>How do bitcoins acquire exchange value?</li>
+<li>Beyond the protocol:<ul>
+<li>Exchanges</li>
+<li>Wallet software</li>
+<li>Service providers</li>
+</ul>
+</li>
+</ul>
+<h3 id="Aspects-of-decentralization-in-Bitcoin"><a href="#Aspects-of-decentralization-in-Bitcoin" class="headerlink" title="Aspects of decentralization in Bitcoin"></a>Aspects of decentralization in Bitcoin</h3><ul>
+<li><p>P2P (Peer-to-Peer) Network</p>
+<p>Open to anyone, low barrier to entry</p>
+</li>
+<li><p>Mining</p>
+<p>Open to anyone, but inevitable concentration of power often seen as undesirable.</p>
+<p>Mainly due to the computing resource required to solve hard computational problem</p>
+</li>
+<li><p>Updates to software</p>
+<p>Core developers trusted by community, they have a lot of power</p>
+</li>
+</ul>
+<h2 id="Part-2-Distributed-Consensus"><a href="#Part-2-Distributed-Consensus" class="headerlink" title="Part 2 Distributed Consensus"></a>Part 2 Distributed Consensus</h2><h3 id="Bitcoin’s-key-challenge-Distributed-Consensus"><a href="#Bitcoin’s-key-challenge-Distributed-Consensus" class="headerlink" title="Bitcoin’s key challenge: Distributed Consensus"></a>Bitcoin’s key challenge: <u>Distributed Consensus</u></h3><h4 id="Why-consensus-protocols"><a href="#Why-consensus-protocols" class="headerlink" title="Why consensus protocols?"></a>Why consensus protocols?</h4><ul>
+<li><p>Traditional motivation: reliability in distributed systems. </p>
+<p><em>e.g. Possible database inconsistency issue</em></p>
+</li>
+<li><p><strong><u>Distributed K-V store</u></strong>: enables various applications like</p>
+<p>DNS, public key directory, stock trades</p>
+</li>
+</ul>
+<h4 id="Defining-Distributed-Consensus"><a href="#Defining-Distributed-Consensus" class="headerlink" title="Defining Distributed Consensus"></a>Defining Distributed Consensus</h4><ul>
+<li>The protocol terminates</li>
+<li>All correct nodes decide on same <strong>value</strong></li>
+<li>This <strong>value</strong> must have been proposed by some correct nodes</li>
+</ul>
+<h3 id="Bitcoin-is-a-peer-to-peer-system"><a href="#Bitcoin-is-a-peer-to-peer-system" class="headerlink" title="Bitcoin is a peer-to-peer system"></a>Bitcoin is a peer-to-peer system</h3><p><img src="bitcoin_p2p.png" alt="bitcoin_p2p"></p>
+<ul>
+<li>When <code>Alice</code> wants to pay Bob:<br>She broadcasts the transaction to all Bitcoin nodes<ul>
+<li>Alice’s Signature</li>
+<li>Bob’s <code>pubkey</code></li>
+<li>Hash: hash pointer to the <em>“history”</em> of this coin</li>
+</ul>
+</li>
+<li>Bob’s computer is not in the picture<ul>
+<li>bitcoin is his no matter if he knows</li>
+</ul>
+</li>
+<li>Order of transaction sequence</li>
+<li>Which nodes receive the broadcast</li>
+</ul>
+<h3 id="How-consensus-“could“-work-in-Bitcoin"><a href="#How-consensus-“could“-work-in-Bitcoin" class="headerlink" title="How consensus “could“ work in Bitcoin"></a>How consensus “<u>could</u>“ work in Bitcoin</h3><p><img src="consensus_candidate.png" alt="consensus_candidate"></p>
+<p>At any given time:</p>
+<ul>
+<li>All nodes have a sequence of <strong><u>blocks of transactions</u></strong> they’ve reached consensus on.</li>
+<li>Each node has a set of outstanding transactions it’s heard about</li>
+</ul>
+<h3 id="Why-consensus-is-hard-technically"><a href="#Why-consensus-is-hard-technically" class="headerlink" title="Why consensus is hard (technically)"></a>Why consensus is hard (technically)</h3><ul>
+<li><p>Nodes may crash</p>
+</li>
+<li><p>Nodes may be malicious</p>
+</li>
+<li><p>Network is imperfect</p>
+<ul>
+<li>Not all pairs of nodes connected</li>
+<li>Faults in network</li>
+<li>Latency<ul>
+<li>No notion of global time</li>
+<li>Not all nodes can agree to order of events by looking at timestamps, can’t determine which transaction happens first</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Many impossibility results</p>
+<ul>
+<li><p>Byzantine generals problem</p>
+<ul>
+<li><a href="https://medium.com/@DebrajG/how-the-byzantine-general-sacked-the-castle-a-look-into-blockchain-370fe637502c" target="_blank" rel="external"><strong>How the Byzantine General Sacked the Castle: A Look Into Blockchain</strong></a></li>
+<li><a href="https://medium.com/all-things-ledger/the-byzantine-generals-problem-168553f31480" target="_blank" rel="external">The Byzantine Generals’ Problem</a></li>
+<li><a href="https://people.eecs.berkeley.edu/~luca/cs174/byzantine.pdf" target="_blank" rel="external">Byzantine General’s Problem Paper by EECS Berkeley</a></li>
+</ul>
+</li>
+<li><p>Fischer-Lunch-Paterson (deterministic nodes)</p>
+<p>Consensus impossible with a <strong><u>single</u></strong> faulty node</p>
+</li>
+</ul>
+</li>
+<li><p>Well-known protocols to solve this problems</p>
+<ul>
+<li>Paxos<ul>
+<li>Never produces inconsistent result</li>
+<li>Can (rarely) get stuck, fail to make any progress</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Understanding impossibility results</p>
+<ul>
+<li>These tests are developed around the concept of distributed databases, not necessarily bitcoin</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Bitcoin consensus works better in practice than in theory</li>
+<li>Theory is still catching up</li>
+<li>But theory is important as it can help predict unforeseen attacks</li>
+</ul>
+<h3 id="Some-things-Bitcoin-does-differently"><a href="#Some-things-Bitcoin-does-differently" class="headerlink" title="Some things Bitcoin does differently"></a>Some things Bitcoin does differently</h3><p>Bitcoin does not quite solve <strong><u>Distributed Consensus</u></strong> Problem in a general sense, but solves it in the context of a currency system.</p>
+<ul>
+<li>Introduces incentives<ul>
+<li>Possible only because it’s a currency</li>
+</ul>
+</li>
+<li>Embraces randomness<ul>
+<li>Does away with the notion of a specific end-point</li>
+<li>Consensus happens over long time scales — about 1 hour<ul>
+<li>But even at the end of that time, you’re not a 100% sure that a transaction or a block that you’re interested in has made it into the consensus block chain. Instead, as time goes on, your probability goes up higher and higher. And the probability that you’re wrong in making an assumption about a transaction goes down exponentially. </li>
+<li>So that’s the kind of inherently probabilistic guarantee that Bitcoin gives you. And that’s why it’s able to completely get around these traditional impossibility results on distributed consensus protocols. </li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Part-3-Consensus-without-Identity-the-Block-Chain"><a href="#Part-3-Consensus-without-Identity-the-Block-Chain" class="headerlink" title="Part 3 Consensus without Identity: the Block Chain"></a>Part 3 Consensus without Identity: the Block Chain</h2><h3 id="Why-identity"><a href="#Why-identity" class="headerlink" title="Why identity?"></a>Why identity?</h3><ul>
+<li>Pragmatic: some protocols need node IDs</li>
+<li>Security: assume less than 50% malicious</li>
+</ul>
+<h3 id="Why-don’t-Bitcoin-nodes-have-identities"><a href="#Why-don’t-Bitcoin-nodes-have-identities" class="headerlink" title="Why don’t Bitcoin nodes have identities?"></a>Why don’t Bitcoin nodes have identities?</h3><ul>
+<li>Identity is hard in a P2P system — Sybil attack</li>
+<li>Pseudonymity is a goal of Bitcoin</li>
+</ul>
+<h3 id="Weaker-Assumption-select-random-node"><a href="#Weaker-Assumption-select-random-node" class="headerlink" title="Weaker Assumption: select random node"></a>Weaker Assumption: select random node</h3><ul>
+<li>Analogy: lottery or raffle</li>
+<li>When tracking &amp; verifying identities is hard, we give people tokens. tickets, etc</li>
+<li>Now we can pick a random ID &amp; select that node </li>
+</ul>
+<h3 id="Key-idea-implicit-consensus"><a href="#Key-idea-implicit-consensus" class="headerlink" title="Key idea: implicit consensus"></a>Key idea: implicit consensus</h3><ul>
+<li>In each round ,random node is picked</li>
+<li>This node proposed the next block in the chain</li>
+<li>Other nodes implicitly accept/reject this block<ul>
+<li>by either extending it</li>
+<li>or ignoring it and extending the chain from earlier block</li>
+</ul>
+</li>
+<li>Recall every block contains hash of the block it extends</li>
+</ul>
+<h3 id="Bitcoin-consensus-algorithm-simplified"><a href="#Bitcoin-consensus-algorithm-simplified" class="headerlink" title="Bitcoin consensus algorithm (simplified)"></a>Bitcoin consensus algorithm (simplified)</h3><ul>
+<li>New transactions are broadcast to all nodes</li>
+<li>Each node collects new transactions into a block</li>
+<li>In each round, a <strong><u>random</u></strong> node gets to broadcast its block</li>
+<li>Other nodes accept the block only if all transactions in it are valid(unspent, valid signatures)</li>
+<li>Nodes express their acceptance of the block by including its hash in the next block they create</li>
+</ul>
+<h3 id="Why-this-works-by-looking-at-what-can-a-malicious-node-do"><a href="#Why-this-works-by-looking-at-what-can-a-malicious-node-do" class="headerlink" title="Why this works by looking at what can a malicious node do?"></a>Why this works by looking at what can a malicious node do?</h3><ul>
+<li><p>Attackers can’t steal bitcoins belong to others. </p>
+<p>As she can’t forge their signatures. As long as the crypto is solid, this is impossible.</p>
+</li>
+<li><p>Attacker can deny service to some user. </p>
+<p>But this is minor as nodes are selected at random to propose its block. Some honest node will propose its correct block sometime afterwards.</p>
+</li>
+<li><p>Attackers can start double-spending attacks. </p>
+</li>
+</ul>
+<h3 id="How-to-prevent-double-spending-in-blockchain"><a href="#How-to-prevent-double-spending-in-blockchain" class="headerlink" title="How to prevent double spending in blockchain?"></a>How to prevent double spending in blockchain?</h3><h4 id="A-valid-transaction"><a href="#A-valid-transaction" class="headerlink" title="A valid transaction"></a>A valid transaction</h4><p>Suppose this is <code>Alice</code> is buying some merchant from merchant <code>Bob</code>  and the payment is done with <code>Bitcoin</code>.</p>
+<p> A valid transaction could look like this:</p>
+<p><img src="legit_transaction.png" alt="legit_transaction"></p>
+<ul>
+<li>Alice is paying Bob with a bitcoin $C_A$ signed by <code>Alice</code> and paid to the merchant Bob’s <code>public key(address)</code></li>
+<li>There are actually at least two types of pointers in this graph<ul>
+<li>The <code>Hash pointer</code> from a block to its previous block indicating where it extends from</li>
+<li>The <code>Hash pointer</code> of this <code>coin/transaction</code> to its previous transaction(where the coin came from)<ul>
+<li>Recall Bitcoin is represented by a transaction</li>
+<li>Intuitively, a <code>coin</code> has a log of how it’s transferred around the network</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>There’s also a third pointer in this graph called <code>Merkle Trace</code> which we are not discussing right now.</li>
+</ul>
+<p>This is the blockchain right now. <strong>So as far as Bob is concerned, he saw the transaction is completed and added to the chain, he may allow Alice to receive her goods in exchange for her bitcoin payment</strong>. But this opens up vulnerability to double-spending attack.</p>
+<h4 id="A-double-spending-attack"><a href="#A-double-spending-attack" class="headerlink" title="A double-spending attack"></a>A double-spending attack</h4><p><img src="double_spending.png" alt="double_spending"></p>
+<ul>
+<li>If by random, <code>Alice</code> get to propose the next block;  <code>Alice</code> could propose a new block that looks like above.<ul>
+<li>Ignore altogether the valid block on that contains the transaction to <code>Bob</code>.</li>
+<li>And instead, contains a pointer to the previous block instead a pointer to the valid block.</li>
+<li>In addition, it contains a transaction that has a transfer of coins, from <code>Alice</code> but not to <code>Bob</code>. Instead, it transfers to <code>A&#39;</code> which is another address controlled by <code>Alice</code>.</li>
+</ul>
+</li>
+<li>This is a classic double spending pattern.<ul>
+<li>What is going on here, is Alice now creates a new transaction that transfers that coin, instead of to Bob’s address, to another address owned by her. </li>
+<li>This is a completely different transaction, also with the same <code>Hash Pointer</code> going back to the same transaction referred earlier in the transaction to <code>Bob</code>.</li>
+</ul>
+</li>
+</ul>
+<h3 id="How-do-we-know-if-this-double-spending-attack-is-going-to-succeed-or-not"><a href="#How-do-we-know-if-this-double-spending-attack-is-going-to-succeed-or-not" class="headerlink" title="How do we know if this double-spending attack is going to succeed or not?"></a>How do we know if this double-spending attack is going to succeed or not?</h3><ul>
+<li><p>Depends on which one of the green transaction and the red transaction is going to end up in the long-term consensus chain.</p>
+</li>
+<li><p><strong>Consensus Rule for honest nodes: Honest node always follow the policy of extending the longest valid branch.</strong></p>
+</li>
+<li><p>From a moral point of view, the green on is definitely the longest valid branch for other nodes to follow.</p>
+</li>
+<li><p>However, from a technical perspective, these two transactions are completely identical in validity. The nodes really have no way to tell which one is the <em>“legitimate”</em> transaction. (<em>“legitimate”</em> here is a moral judgement that we apply to it, so it’s not a technical distinction)</p>
+</li>
+<li><p>Nodes often follow a heuristic of extending the block that they first heard about on the peer-to-peer network, but it’s not a solid rule. And in any case, because of network latency, that could easily be the other way around. </p>
+</li>
+<li><p>So if <code>Alice</code> get to propose the block contains the red transaction, it could get included into the consensus chain and becomes the longest valid chain. Even if some other node gets to propose, she could potentially hack/bribe to achieve her goals.</p>
+<p><img src="successful double spending attack.png" alt="successful double spending attack"></p>
+</li>
+<li><p>So if <code>Alice</code> succeeded, her branch becomes the longest valid branch. Honest nodes will be more likely to add more blocks to <code>Alice&#39;s</code> branch and it will become more and more valid. </p>
+<p>At this point, <code>Alice</code> has succeeded her double spending attack. Her fraudulent transaction is successfully buried deep in the consensus chain.</p>
+</li>
+</ul>
+<h3 id="How-a-Merchant-like-Bob-can-prevent-this"><a href="#How-a-Merchant-like-Bob-can-prevent-this" class="headerlink" title="How a Merchant like Bob can prevent this?"></a>How a Merchant like <code>Bob</code> can prevent this?</h3><p><img src="merchant&#39;s perspective.png" alt="merchant&#39;s perspective"></p>
+<ul>
+<li><p>From Bob’s perspective he could confirm the transaction is successful on different circumstances.</p>
+<ol>
+<li><p>He could confirm the transaction as long as it gets broadcasted. This is more foolhardy than our example above. This is called <code>0 confirmations</code>.</p>
+</li>
+<li><p>He could wait along and wait for 1 block with the successful legit transaction to be added to the consensus chain. This is called <code>1 confirmations</code>.</p>
+</li>
+<li><p>He could wait even longer, like <code>3 confirmations</code>. Because the node to propose is selected at random. It’s incredibly hard for <code>Alice</code> to build a faulty chain with the same length as the legit chain. She would have to possess more and more malicious nodes to make her chain even 1 block longer.</p>
+</li>
+<li><p>Based on the sense that </p>
+<ul>
+<li>most nodes are honest the fact </li>
+<li>longer the chain is after the green transaction, harder to produce fraudulent chain</li>
+</ul>
+<p><strong><u>The double-spend probability decreases exponentially with number of confirmations</u></strong>.</p>
+<ul>
+<li>The most common heuristic among the bitcoin community agrees upon 6 confirmations as being enough.</li>
+<li>There is nothing really special about the number six. It’s just a good trade-off between the amount of time you have to wait and your guarantee that the transaction you’re interested in ends up on the consensus block chain. </li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h3 id="Recap"><a href="#Recap" class="headerlink" title="Recap"></a>Recap</h3><ul>
+<li>Protection against invalid transactions is cryptographic, but enforced by consensus.</li>
+<li>Protection against double-spending is purely by consensus. Cryptography has nothing to say about this.</li>
+<li>You are never 100% sure that a transaction that you’re interested in is on the consensus branch. But this exponential probability guarantee is pretty good. After about six transactions, there’s virtually no chance that you’re gonna go wrong. </li>
+</ul>
+<h2 id="Part-4-Incentives-and-Proof-of-Work"><a href="#Part-4-Incentives-and-Proof-of-Work" class="headerlink" title="Part 4 Incentives and Proof of Work"></a>Part 4 Incentives and Proof of Work</h2><h3 id="Assumption-of-honesty-is-problematic"><a href="#Assumption-of-honesty-is-problematic" class="headerlink" title="Assumption of honesty is problematic"></a>Assumption of honesty is problematic</h3><ul>
+<li><p>Nodes have financial incentives to subvert the protocols for their own gains</p>
+</li>
+<li><p>Can we give nodes incentives to behave honestly?</p>
+<p><img src="honesty_incentive.png" alt="honesty_incentive"></p>
+<ul>
+<li>Penalize nodes that create problematic blocks?<ul>
+<li>Nodes don’t have identity, no way to chase them and penalize</li>
+</ul>
+</li>
+<li>Can we reward nodes that create valid blocks?<ul>
+<li>Yes.</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Incentives-in-Bitcoin"><a href="#Incentives-in-Bitcoin" class="headerlink" title="Incentives in Bitcoin"></a>Incentives in Bitcoin</h3><h4 id="Incentive-1-Block-reward"><a href="#Incentive-1-Block-reward" class="headerlink" title="Incentive 1: Block reward"></a>Incentive 1: Block reward</h4><p>Creator of block gets to</p>
+<ul>
+<li><p>include <strong><u>special coin-creation transaction</u></strong> in the block</p>
+</li>
+<li><p>choose recipient address of this transaction</p>
+</li>
+<li><p>Value is fixed: currently 25 BTC, halves every 4 years (currently phase 2)</p>
+</li>
+<li><p>Bitcoin supply</p>
+<p><img src="bitcoin_supply.png" alt="Bitcoin Supply"></p>
+<ul>
+<li>The slope of the supply curve halts every 4 years</li>
+<li>This ends up as a geometric sequence with a final finite sum</li>
+<li>Bitcoin is only created this way(reward for building new blocks that ends up in the consensus chain)</li>
+</ul>
+</li>
+</ul>
+<p><strong>Block creator gets to “collect” their rewards only if their block ends up on the long-term consensus branch.</strong> (The coin creation transaction is only valid if it ends up on the long-term consensus branch)</p>
+<h4 id="Incentive-2-Transaction-value"><a href="#Incentive-2-Transaction-value" class="headerlink" title="Incentive 2: Transaction value"></a>Incentive 2: Transaction value</h4><ul>
+<li>Creator of transaction can choose to make the output value less than input value</li>
+<li>Remainder is a transaction fee and goes to block creator</li>
+<li>Purely voluntary, like a tip</li>
+<li>How the environment will evolve is interesting game theory</li>
+</ul>
+<h3 id="Remaining-problems"><a href="#Remaining-problems" class="headerlink" title="Remaining problems"></a>Remaining problems</h3><ol>
+<li>How to pick a truly <strong><u>random</u></strong> node?</li>
+<li>How to avoid a free-for-all due to rewards? (Everyone runs a block try to get the block creation reward)</li>
+<li>How to prevent Sybil attacks?</li>
+</ol>
+<h3 id="One-same-solution-to-these-remaining-problems"><a href="#One-same-solution-to-these-remaining-problems" class="headerlink" title="One same solution to these remaining problems?"></a>One same solution to these remaining problems?</h3><p>To approximate selecting a random node:</p>
+<ul>
+<li>select nodes in proportion to a resource that no one can monopolize(we hope)</li>
+</ul>
+<p>Resource choices:</p>
+<ul>
+<li>Select a node in proportion to computing power: <code>proof-of-work</code></li>
+<li>Select a node in proportion to ownership of the currency: <code>proof-of-stake</code></li>
+</ul>
+<h3 id="Proof-of-work-Intentions"><a href="#Proof-of-work-Intentions" class="headerlink" title="Proof-of-work (Intentions)"></a>Proof-of-work (Intentions)</h3><ul>
+<li>Allow nodes to compete with each other with their computing power, result in nodes automatically getting picked in proportion to their computing power</li>
+<li>Make it moderately hard to create new identities(nodes)</li>
+</ul>
+<h3 id="Hash-puzzles"><a href="#Hash-puzzles" class="headerlink" title="Hash puzzles"></a>Hash puzzles</h3><p><img src="hash_puzzles.png" alt="hash_puzzles"></p>
+<ul>
+<li>To create block, it is required to find a <code>nonce</code> s.t.</li>
+<li><code>H(nonce|prev_hash|tx|tx|....|tx)</code> is in a very small subset of the entire output space of the hash function</li>
+<li>Therefore, if our hash function is secure enough: only way to succeed is to try enough nonces until you get lucky.</li>
+<li>Thus we made it moderately difficult to create new blocks.</li>
+<li>Completely does away with the requirement for somebody somehow to pick a random node.</li>
+<li>Instead, nodes are simply all the time independently competing to solve this puzzle. Once in a while, some node will get lucky and find a valid <code>nonce</code> and that node gets to propose the next block.</li>
+</ul>
+<h3 id="PoW-properties"><a href="#PoW-properties" class="headerlink" title="PoW properties"></a>PoW properties</h3><h4 id="Property-1-difficult-to-compute"><a href="#Property-1-difficult-to-compute" class="headerlink" title="Property 1: difficult to compute"></a>Property 1: difficult to compute</h4><ul>
+<li>As of Aug 2014: about $10^{20}$ hashes per block, this is a humongous number</li>
+<li>So only some nodes bother to compete — miners </li>
+</ul>
+<h4 id="Property-2-parametrizable-cost"><a href="#Property-2-parametrizable-cost" class="headerlink" title="Property 2: parametrizable cost"></a>Property 2: parametrizable cost</h4><ul>
+<li>Nodes automatically recalculates the target space of PoW every two weeks based on the entire network’s global computing power s.t. a fixed rate output of blocks</li>
+<li>Goal: Average time between block creations = 10 minutes, a efficiency concern</li>
+<li><code>Prob(alice wins next block) = fraction of global hash power she controls</code></li>
+</ul>
+<ul>
+<li><p><strong><u>Key security assumption</u></strong>: Attacks infeasible if <strong><u>majority</u></strong> of miners <strong><u>weighted by hash power</u></strong> follow the protocol (aka honest)</p>
+<p><img src="hash_puzzle distribution.png" alt="hash_puzzle distribution"></p>
+</li>
+</ul>
+<h4 id="Property-3-trivial-to-verify"><a href="#Property-3-trivial-to-verify" class="headerlink" title="Property 3: trivial to verify"></a>Property 3: trivial to verify</h4><ul>
+<li>nonce must be published as part of the block</li>
+<li>So other miners can verify that <code>H(nonce|prev_hash|tx|tx|....|tx) in target</code></li>
+</ul>
+<h2 id="Part-5-Putting-It-All-Together"><a href="#Part-5-Putting-It-All-Together" class="headerlink" title="Part 5 Putting It All Together"></a>Part 5 Putting It All Together</h2><h3 id="Mining-Economics"><a href="#Mining-Economics" class="headerlink" title="Mining Economics"></a>Mining Economics</h3><p><img src="mining_economics.png" alt="mining_economics">Complications:</p>
+<ul>
+<li>Fixed vs. variable costs</li>
+<li>Reward depends on global hash rate</li>
+<li>Also exchange value of rewarded bitcoin in terms of dollars for example is fluctuating</li>
+<li>Whether profitable is a very complicated game theory problem</li>
+</ul>
+<h3 id="Recap-1"><a href="#Recap-1" class="headerlink" title="Recap"></a>Recap</h3><ul>
+<li><strong>Identities:</strong><ul>
+<li>Any time any user can make any number of pseudonymous key pair as identities.</li>
+</ul>
+</li>
+<li><strong>Transactions:</strong><ul>
+<li>Basically messages that are broadcast to the bitcoin p2p network.</li>
+<li>Which are instructions to transfer a coin from one address to another. </li>
+</ul>
+</li>
+<li><strong>Coin:</strong><ul>
+<li>Really is just a chain of transactions.</li>
+</ul>
+</li>
+<li><strong>P2P network:</strong><ul>
+<li><strong>Goal:</strong> propagate all new transactions to all the Bitcoin peer nodes as well as new blocks to the Bitcoin peer nodes.</li>
+<li>The real security of the system doesn’t come from the perfection of the P2P network.</li>
+<li>Nevertheless, the underlying assumption is that the network is quite unreliable.</li>
+<li>Security comes from blockchain and consensus protocol.</li>
+</ul>
+</li>
+<li><strong>Block chain &amp; consensus Protocol</strong><ul>
+<li>Your transaction to be in the block chain is that it achieves a lot of confirmations. </li>
+<li>It’s not a fixed number, 6 is a commonly used heuristic, but the more confirmations your transaction has received, the more blocks are found that extend the block that contained your transaction, the more certain you can be that your transaction was part of the consensus chain. </li>
+<li>A variety of <strong>orphan blocks</strong>, blocks that don’t make it to the consensus chain.  Can be interpreted as different possibilities:<ul>
+<li>An invalid transaction</li>
+<li>A double-spend attempt</li>
+<li>A network latency residue (t could simply represent the fact that there is latency in the network, and two miners competing to solve this proof of work puzzle. Simply ended up finding new blocks within just a few seconds of each other. And, so both of these blocks were broadcast nearly simultaneously onto the network. )</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>Hash puzzles &amp; mining</strong><ul>
+<li>So another subtle point here is that if Alice and Bob were two different miners, and Alice has 100 times as much computing power as Bob. What that means is, not that Alice will always win the race against Bob to find the next block, but instead, Alice and Bob have a ratio, a probability ratio, of finding the next block in the proportion 100 to 1. So in the long term Bob will find, on average, 1% of the blocks that Alice does. </li>
+<li>Miners are a special type of nodes that bother to compete in this game of creating new blocks and they’re rewarded for their efforts in terms of Bitcoins.</li>
+<li>And we expect that miners are going to be typically somewhere near the economic equilibrium of the expenditure that they incur, in terms of hardware and electricity, being somewhere equal to the rewards that they obtain in terms of the new block creation reward and the transaction fee based rewards.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bitcoin-has-three-types-of-consensus"><a href="#Bitcoin-has-three-types-of-consensus" class="headerlink" title="Bitcoin has three types of consensus"></a>Bitcoin has three types of consensus</h3><ul>
+<li>Value<ul>
+<li>Like exchange rate in fiat currencies</li>
+</ul>
+</li>
+<li>State (blockchain)<ul>
+<li>Which transaction are valid</li>
+<li>Which transaction actually happened</li>
+<li>Ownership of bitcoin is based on consensus (other nodes think someone owns it)</li>
+</ul>
+</li>
+<li>Rules (of the system)<ul>
+<li>When the rule of system needs to change</li>
+<li>Soft forks </li>
+<li>Hard forks</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bitcoin-is-bootstrapped"><a href="#Bitcoin-is-bootstrapped" class="headerlink" title="Bitcoin is bootstrapped"></a>Bitcoin is <u>bootstrapped</u></h3><p><img src="bootstrap.png" alt="bootstrap"></p>
+<ul>
+<li>Let’s start from the security of the block chain. So obviously we want the block chain to be secure for Bitcoin to be a viable currency. But, what is necessary for the block chain to be secure? What this means is that an adversary shouldn’t be able to overwhelm the consensus process. Shouldn’t be able to create a lot of nodes and take over 50% or more of the new block creation.</li>
+<li>But a prerequisite for that is a healthy mining ecosystem made up of largely honest protocol following nodes. So that’s a prerequisite for security of the block chain.</li>
+<li>But miners are only incentivized to mining if the exchange rate of Bitcoin is pretty high.</li>
+<li>But what ensures a high and stable value of the currency? That can only happen if, users in general, people who want to buy Bitcoins, have trust in the security of the block chain. Because if they believe that the network could be overwhelmed at any moment by an attacker then Bitcoin is not going to have a lot of value as a currency.</li>
+<li>So there is this interlocking interdependence between these three things.</li>
+</ul>
+<h3 id="What-can-a-“51-attacker”-Consensus-Suberter-do"><a href="#What-can-a-“51-attacker”-Consensus-Suberter-do" class="headerlink" title="What can a “51% attacker”(Consensus Suberter) do?"></a>What can a “51% attacker”(Consensus Suberter) do?</h3><ul>
+<li>Steal coins from existing address?<ul>
+<li><strong>Not possible.</strong> <ul>
+<li>Even if the invalid branch makes it self the longest branch. Honest nodes will not approve and keep on mining valid blocks.</li>
+<li>Creating a <strong><u>fork</u></strong> in blockchain.</li>
+<li>A merchant running a honest node can simply ignore the longest branch as it contains a invalid transaction. (crypto and signature don’t checkout)</li>
+</ul>
+</li>
+<li>Only if subverting both consensus and cryptography will succeed.</li>
+</ul>
+</li>
+<li>Suppress soem transactions?<ul>
+<li>From the blockchain<ul>
+<li><strong>Possible</strong><ul>
+<li>Since he controls the consensus, he can skimpy refuse any new blocks contain that transaction</li>
+<li>also refuse build upon blocks that contain such transactions.</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>From the P2P network<ul>
+<li><strong>Impossible</strong><ul>
+<li>Assume the attacker doesn’t fully control the network, can’t prevent transaction being broadcasted to the network</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>Change the block reward (Rule of the system)<ul>
+<li><strong>Impossible</strong></li>
+<li>Doesn’t control the source software every node is using.</li>
+</ul>
+</li>
+<li>Destroy the confidence of Bitcoin<ul>
+<li><strong>Possible</strong></li>
+<li><strong>Main practical attack</strong></li>
+</ul>
+</li>
+</ul>
+<h3 id="Remaining-questions"><a href="#Remaining-questions" class="headerlink" title="Remaining questions"></a>Remaining questions</h3><ul>
+<li>How do we get from consensus to currency?</li>
+<li>What else can we do with consensus?</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大佬请我喝维他柠檬茶吧 Buy me some Vita lemon tea!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Xingfan Xia WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Xingfan Xia Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Xingfan Xia
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://blog.xiax.ai/2018/02/13/blockchain-notes-1/" title="Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes">http://blog.xiax.ai/2018/02/13/blockchain-notes-1/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Bitcoin/" rel="tag"># Bitcoin</a>
+          
+            <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+          
+            <a href="/tags/Consensus/" rel="tag"># Consensus</a>
+          
+            <a href="/tags/Cryptography/" rel="tag"># Cryptography</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/09/05/shadowsocks-intro/" rel="next" title="Shadowsocks 101 and How It's Different From VPN">
+                <i class="fa fa-chevron-left"></i> Shadowsocks 101 and How It's Different From VPN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/02/28/blockchain-lecture-3/" rel="prev" title="Bitcoin and Cryptocurrency Technologies Lecture 3 Notes">
+                Bitcoin and Cryptocurrency Technologies Lecture 3 Notes <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg"
+                alt="Xingfan Xia" />
+            
+              <p class="site-author-name" itemprop="name">Xingfan Xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xingfanxia" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/ruuuuaaaa/" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam-square"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/xingfanxia/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin-square"></i>Linkedin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xingfanxia@gmail.com" target="_blank" title="E-mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-1-Basic-Cryptography-related"><span class="nav-number">1.</span> <span class="nav-text">Lecture 1 Basic Cryptography related</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-Hash-function"><span class="nav-number">1.1.</span> <span class="nav-text">Part 1 Hash function</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash-function"><span class="nav-number">1.1.1.</span> <span class="nav-text">Hash function:</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Security-Properties-of-Hash-function"><span class="nav-number">1.1.2.</span> <span class="nav-text">Security Properties of Hash function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-SHA-256-hash-function"><span class="nav-number">1.1.3.</span> <span class="nav-text">Example: SHA-256 hash function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-Hash-pointers"><span class="nav-number">1.2.</span> <span class="nav-text">Part 2 Hash pointers</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash-pointer"><span class="nav-number">1.2.1.</span> <span class="nav-text">Hash pointer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-idea-Build-data-structure-with-hash-pointers"><span class="nav-number">1.2.2.</span> <span class="nav-text">Key idea: Build data structure with hash pointers</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-Linkedlist-with-Hash-pointers-blockchain"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">Example: Linkedlist with Hash pointers (blockchain)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Example-binary-tree-with-hash-pointers-Merkle-tree"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">Example: binary tree with hash pointers (Merkle tree)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Generally"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">Generally</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-3-Digital-Signatures"><span class="nav-number">1.3.</span> <span class="nav-text">Part 3 Digital Signatures</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Features-of-Signatures"><span class="nav-number">1.3.1.</span> <span class="nav-text">Features of Signatures</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#API-for-digital-signatures"><span class="nav-number">1.3.2.</span> <span class="nav-text">API for digital signatures</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Requirements-for-signatures"><span class="nav-number">1.3.2.1.</span> <span class="nav-text">Requirements for signatures</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Practical-stuff"><span class="nav-number">1.3.2.2.</span> <span class="nav-text">Practical stuff</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-4-Public-Keys-as-Identities"><span class="nav-number">1.4.</span> <span class="nav-text">Part 4 Public Keys as Identities</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Useful-trick-pulic-key-an-identity"><span class="nav-number">1.4.1.</span> <span class="nav-text">Useful trick: pulic key == an identity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-make-a-new-identity"><span class="nav-number">1.4.2.</span> <span class="nav-text">How to make a new identity</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Decentralized-identity-management"><span class="nav-number">1.4.3.</span> <span class="nav-text">Decentralized identity management</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Privacy-how-private-it-is"><span class="nav-number">1.4.4.</span> <span class="nav-text">Privacy (how private it is)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-5-A-simple-Cryptocurrency"><span class="nav-number">1.5.</span> <span class="nav-text">Part 5 A simple Cryptocurrency</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Goofy-Coin-Simplest-Cryptocurrency"><span class="nav-number">1.5.1.</span> <span class="nav-text">Goofy Coin: Simplest Cryptocurrency</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Rules"><span class="nav-number">1.5.1.1.</span> <span class="nav-text">Rules:</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Problems"><span class="nav-number">1.5.1.2.</span> <span class="nav-text">Problems</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Scrooge-Coin"><span class="nav-number">1.5.2.</span> <span class="nav-text">Scrooge Coin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Changes"><span class="nav-number">1.5.2.1.</span> <span class="nav-text">Changes</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Problem-Centralization"><span class="nav-number">1.5.2.2.</span> <span class="nav-text">Problem: Centralization</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Assignment-Scrooge-Coin’s-public-ledger"><span class="nav-number">1.5.2.3.</span> <span class="nav-text">Assignment: Scrooge Coin’s public ledger</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lecture-2-How-Bitcoin-achieves-Decentralization"><span class="nav-number">2.</span> <span class="nav-text">Lecture 2 How Bitcoin achieves Decentralization</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-Centralization-vs-Decentralization"><span class="nav-number">2.1.</span> <span class="nav-text">Part 1 Centralization vs. Decentralization</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Decentralization-is-not-“all-or-nothing”"><span class="nav-number">2.1.1.</span> <span class="nav-text">Decentralization is not “all-or-nothing”</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Questions-to-answer-about-decentralization-in-Bitcoin"><span class="nav-number">2.1.2.</span> <span class="nav-text">Questions to answer about decentralization in Bitcoin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Aspects-of-decentralization-in-Bitcoin"><span class="nav-number">2.1.3.</span> <span class="nav-text">Aspects of decentralization in Bitcoin</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-Distributed-Consensus"><span class="nav-number">2.2.</span> <span class="nav-text">Part 2 Distributed Consensus</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin’s-key-challenge-Distributed-Consensus"><span class="nav-number">2.2.1.</span> <span class="nav-text">Bitcoin’s key challenge: Distributed Consensus</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Why-consensus-protocols"><span class="nav-number">2.2.1.1.</span> <span class="nav-text">Why consensus protocols?</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Defining-Distributed-Consensus"><span class="nav-number">2.2.1.2.</span> <span class="nav-text">Defining Distributed Consensus</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-is-a-peer-to-peer-system"><span class="nav-number">2.2.2.</span> <span class="nav-text">Bitcoin is a peer-to-peer system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-consensus-“could“-work-in-Bitcoin"><span class="nav-number">2.2.3.</span> <span class="nav-text">How consensus “could“ work in Bitcoin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-consensus-is-hard-technically"><span class="nav-number">2.2.4.</span> <span class="nav-text">Why consensus is hard (technically)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Some-things-Bitcoin-does-differently"><span class="nav-number">2.2.5.</span> <span class="nav-text">Some things Bitcoin does differently</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-3-Consensus-without-Identity-the-Block-Chain"><span class="nav-number">2.3.</span> <span class="nav-text">Part 3 Consensus without Identity: the Block Chain</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-identity"><span class="nav-number">2.3.1.</span> <span class="nav-text">Why identity?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-don’t-Bitcoin-nodes-have-identities"><span class="nav-number">2.3.2.</span> <span class="nav-text">Why don’t Bitcoin nodes have identities?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Weaker-Assumption-select-random-node"><span class="nav-number">2.3.3.</span> <span class="nav-text">Weaker Assumption: select random node</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Key-idea-implicit-consensus"><span class="nav-number">2.3.4.</span> <span class="nav-text">Key idea: implicit consensus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-consensus-algorithm-simplified"><span class="nav-number">2.3.5.</span> <span class="nav-text">Bitcoin consensus algorithm (simplified)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-this-works-by-looking-at-what-can-a-malicious-node-do"><span class="nav-number">2.3.6.</span> <span class="nav-text">Why this works by looking at what can a malicious node do?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-to-prevent-double-spending-in-blockchain"><span class="nav-number">2.3.7.</span> <span class="nav-text">How to prevent double spending in blockchain?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#A-valid-transaction"><span class="nav-number">2.3.7.1.</span> <span class="nav-text">A valid transaction</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#A-double-spending-attack"><span class="nav-number">2.3.7.2.</span> <span class="nav-text">A double-spending attack</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-do-we-know-if-this-double-spending-attack-is-going-to-succeed-or-not"><span class="nav-number">2.3.8.</span> <span class="nav-text">How do we know if this double-spending attack is going to succeed or not?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-a-Merchant-like-Bob-can-prevent-this"><span class="nav-number">2.3.9.</span> <span class="nav-text">How a Merchant like Bob can prevent this?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Recap"><span class="nav-number">2.3.10.</span> <span class="nav-text">Recap</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-4-Incentives-and-Proof-of-Work"><span class="nav-number">2.4.</span> <span class="nav-text">Part 4 Incentives and Proof of Work</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Assumption-of-honesty-is-problematic"><span class="nav-number">2.4.1.</span> <span class="nav-text">Assumption of honesty is problematic</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Incentives-in-Bitcoin"><span class="nav-number">2.4.2.</span> <span class="nav-text">Incentives in Bitcoin</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Incentive-1-Block-reward"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">Incentive 1: Block reward</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Incentive-2-Transaction-value"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">Incentive 2: Transaction value</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remaining-problems"><span class="nav-number">2.4.3.</span> <span class="nav-text">Remaining problems</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#One-same-solution-to-these-remaining-problems"><span class="nav-number">2.4.4.</span> <span class="nav-text">One same solution to these remaining problems?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Proof-of-work-Intentions"><span class="nav-number">2.4.5.</span> <span class="nav-text">Proof-of-work (Intentions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash-puzzles"><span class="nav-number">2.4.6.</span> <span class="nav-text">Hash puzzles</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PoW-properties"><span class="nav-number">2.4.7.</span> <span class="nav-text">PoW properties</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Property-1-difficult-to-compute"><span class="nav-number">2.4.7.1.</span> <span class="nav-text">Property 1: difficult to compute</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Property-2-parametrizable-cost"><span class="nav-number">2.4.7.2.</span> <span class="nav-text">Property 2: parametrizable cost</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Property-3-trivial-to-verify"><span class="nav-number">2.4.7.3.</span> <span class="nav-text">Property 3: trivial to verify</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-5-Putting-It-All-Together"><span class="nav-number">2.5.</span> <span class="nav-text">Part 5 Putting It All Together</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mining-Economics"><span class="nav-number">2.5.1.</span> <span class="nav-text">Mining Economics</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Recap-1"><span class="nav-number">2.5.2.</span> <span class="nav-text">Recap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-has-three-types-of-consensus"><span class="nav-number">2.5.3.</span> <span class="nav-text">Bitcoin has three types of consensus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-is-bootstrapped"><span class="nav-number">2.5.4.</span> <span class="nav-text">Bitcoin is bootstrapped</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#What-can-a-“51-attacker”-Consensus-Suberter-do"><span class="nav-number">2.5.5.</span> <span class="nav-text">What can a “51% attacker”(Consensus Suberter) do?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Remaining-questions"><span class="nav-number">2.5.6.</span> <span class="nav-text">Remaining questions</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xingfan Xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xingfanstechblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.xiax.ai/2018/02/13/blockchain-notes-1/';
+          this.page.identifier = '2018/02/13/blockchain-notes-1/';
+          this.page.title = 'Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xingfanstechblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("yYIRJGQTTs0YBloBgezdtg6O-gzGzoHsz", "AUwhPmvz3tXkoh8bcn1CMakc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>

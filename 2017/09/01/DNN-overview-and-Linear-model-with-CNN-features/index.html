@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Python,Deep Learning,Image Recognition,Vgg,Tutorial,Linear Model,Maths," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="PrefaceIn this article, I will go through some key maths background to understand DNN. As well as finetuning aka how to build a train a linear model on top of a existing image recogniton to our tasks.">
+<meta name="keywords" content="Python,Deep Learning,Image Recognition,Vgg,Tutorial,Linear Model,Maths">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vgg Overview and Build a Linear Model With CNN Features">
+<meta property="og:url" content="http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/index.html">
+<meta property="og:site_name" content="Coder For Fun | Xingfan&#39;s Tech Blog">
+<meta property="og:description" content="PrefaceIn this article, I will go through some key maths background to understand DNN. As well as finetuning aka how to build a train a linear model on top of a existing image recogniton to our tasks.">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/layers%20of%20DNN.png">
+<meta property="og:updated_time" content="2018-07-19T04:10:47.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vgg Overview and Build a Linear Model With CNN Features">
+<meta name="twitter:description" content="PrefaceIn this article, I will go through some key maths background to understand DNN. As well as finetuning aka how to build a train a linear model on top of a existing image recogniton to our tasks.">
+<meta name="twitter:image" content="http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/layers%20of%20DNN.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/"/>
+
+
+
+
+
+  <title>Vgg Overview and Build a Linear Model With CNN Features | Coder For Fun | Xingfan's Tech Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-65724730-3', 'auto');
+  ga('send', 'pageview');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coder For Fun | Xingfan's Tech Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Random Stuff Randonly Updated</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-projects">
+          <a href="/projects" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code-fork"></i> <br />
+            
+            projects
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://xiax.ai" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingfan Xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coder For Fun | Xingfan's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Vgg Overview and Build a Linear Model With CNN Features</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-09-01T12:08:24-07:00">
+                2017-09-01
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-07-18T21:10:47-07:00">
+                2018-07-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Deep-Learning/" itemprop="url" rel="index">
+                    <span itemprop="name">Deep Learning</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/" class="leancloud_visitors" data-flag-title="Vgg Overview and Build a Linear Model With CNN Features">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="Words count in article">
+                  2,239
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="Reading time">
+                  14
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h3><p>In this article, I will go through some key maths background to understand DNN. As well as finetuning aka how to build a train a linear model on top of a existing image recogniton to our tasks.<br>This is a study note of <a href="http://course.fast.ai/lessons/lesson2.html" target="_blank" rel="external">Fast.ai Lesson 2</a> .</p>
+<a id="more"></a>
+<h3 id="So-what’s-magic-happening-in-Lesson-1"><a href="#So-what’s-magic-happening-in-Lesson-1" class="headerlink" title="So what’s magic happening in Lesson 1?"></a>So what’s magic happening in Lesson 1?</h3><p>How can we just borrow the Vgg model, finetune it and it magically can distinguish cats vs dogs?</p>
+<p>Let’s start with how can Vgg recognize images. </p>
+<h4 id="What-is-Vgg"><a href="#What-is-Vgg" class="headerlink" title="What is Vgg?"></a>What is Vgg?</h4><p>Vgg is basically a DNN that is trained upon the ImageNet which is enable to classify the input into one of the 1000 categories(It actually gives probas for each categories). How it’s doing that? Although DNN is often time a black box, we can still understand parts of how it works following this <a href="https://arxiv.org/pdf/1311.2901.pdf" target="_blank" rel="external">paper</a>. Generally, a Image Recognition DNN is consists of multiple layers of pattern from the very simple ones to complicated ones. The first layer might just be a gradient, a line, a diagonal, a curve, any small simple patterns like that. The second layer basically assembles patterns found in the first layer, it might recognize corner (just two connecting diagonal connected with a 90 degree angle), circule, oval now . The same logic follows on. For example, the model could identify human faces at level 5 or level 6.</p>
+<p>Here is an image taken from the paper, first 5 layers is shown along with actual images where it found a match.</p>
+<p><img src="layers of DNN.png" alt="layers of DNN"></p>
+<p>For example, Vgg has 16 layers.</p>
+<h3 id="DNN"><a href="#DNN" class="headerlink" title="DNN"></a>DNN</h3><p>So how is Vgg doing that? No one is telling it about the patterns. This is done by the black box of DNN. </p>
+<p>A neural network is at its core a sequence of matrices that map an input vector to an output vector through matrix multiplication. The intermediate vectors in between each matrix are the activations, and the matrices themselves are the layers. Through a process we’ll learn about called “fitting”, our goal is to adjust the values of the matrices, which we call “weights”, so that when our input vectors are passed into the neural network we are able to produce an output vector that is as close as possible to the true output vector, and we do this across multiple labeled input vectors. This is what makes up a training set.</p>
+<p>Above, we started with randomly generated weights as our matrix elements. After performing all the operations and observing the outcome, notice how the activations output is significantly different than our target vector y. Our goal is to get as close to the target vector y as possible using some sort of <em>optimization algorithm</em>. Before using the optimization algorithm, it’s suggested to start your weight values in a manner that makes the activations output at least relatively close to the target vector. This method is called <em>weight initialization</em>.</p>
+<p>There are many weight initializers to choose from. In the lecture, Jeremy uses <a href="http://andyljones.tumblr.com/post/110998971763/an-explanation-of-xavier-initialization%7C" target="_blank" rel="external">Xavier Initialization</a> (also known as Glorot Initialization). However, it’s important to note that most modern deep learning libraries will handle weight initialization for you.</p>
+<h3 id="Loss-Functions"><a href="#Loss-Functions" class="headerlink" title="Loss Functions"></a>Loss Functions</h3><p>So how are we minimizing this loss function? First we need to define a loss function, there are several popular loss functions. Here I will introduce <em>SVM(Support Vector Machine)</em> and <em>Softmax</em>.</p>
+<h4 id="SVM-as-Loss-Function"><a href="#SVM-as-Loss-Function" class="headerlink" title="SVM as Loss Function"></a>SVM as Loss Function</h4><h4 id="SVM-Multiclass-Support-Vector-Machine-loss"><a href="#SVM-Multiclass-Support-Vector-Machine-loss" class="headerlink" title="SVM (Multiclass Support Vector Machine loss)"></a>SVM (Multiclass Support Vector Machine loss)</h4><script type="math/tex; mode=display">L_i = \sum_{j \ne y_i} max(0, s_j -s{y_i} + \Delta)</script><ol>
+<li>j for true label class</li>
+<li>$ j \ne y_i$ for all incorrect class</li>
+<li>$s_j$ for weight of the true label class</li>
+<li>$s_{y_i}$ for weight of other incorrect class</li>
+<li>$\Delta$ for tolerence of the difference</li>
+<li>$max(0, -)$ aka hinge loss, people sometimes use squared hinge loss as $max(0, -)^2$ that penalizes violated margins more strongly. Usually linear hinge loss is good enough. </li>
+</ol>
+<p>In summary, the SVM loss function wants the score of the correct class $y_i$ to be larger than the incorrect class scores by at least by $\Delta$ (delta). If this is not the case, we will accumulate loss.</p>
+<p>$i.e.$ The Multiclass Support Vector Machine “wants” the score of the correct class to be higher than all other scores by at least a margin of delta. </p>
+<h4 id="Regularization-for-SVM"><a href="#Regularization-for-SVM" class="headerlink" title="Regularization for SVM"></a>Regularization for SVM</h4><p>There is a problem with this SVM loss function is that there could multiple set of $W$ that satisfies (minimizing $L$ to 0). So we want to encode our $W$ to remove this ambiguity. A standard way is to extend the loss function with a regularization penalty $R(W)$. The most common scheme for regularization penalty is $L2$ norm that discourages large weights through an elementwise quadratic penalty over all parameters as shown below:</p>
+<script type="math/tex; mode=display">R(W) = \sum_{k} \sum_{l} W_{k, l}^2</script><p>And thew new loss function $L$ now contains two parts: data loss (which is average loss $L_i$ over all samples$ and the regularization loss. That is the full Multiclass SVM loss: </p>
+<script type="math/tex; mode=display">L = \frac{1}{N} \sum_{i }L_{i} + \lambda R(W)</script><p>which can be expand to its full form as : </p>
+<script type="math/tex; mode=display">L = \frac{1}{N} \sum_{i } \sum_{j \ne y_i} max(0, f(x_i; W)_j -f(x_i; w)_{y_i} + \Delta) + \lambda \sum_{k} \sum_{l} W_{k, l}^2</script><p>And this is able to improve the generalization performance at the end lead to less overfitting. As the $L2$ penalty prefers smaller and more diffuse weight vectors so the final classifier is encouraaged to take into acocunt all input dimensions to small amounts rather than a few input dimensions and very strongly.</p>
+<h3 id="Softmax-as-Loss-Function"><a href="#Softmax-as-Loss-Function" class="headerlink" title="Softmax as Loss Function"></a>Softmax as Loss Function</h3><p>In a softmax classifier, the function mapping $ f(x<em>i; W) = W</em>{x_i} $ is unchanged, but it interprets these scores as unnormalized log porbabilities for each class and replace the hinge loss with corss-entrophy loss in the following form: </p>
+<script type="math/tex; mode=display">L_i =  -log \left(\frac{e^{f_i}}{\sum_j e^{f_j}} \right)</script><ol>
+<li>$f_j$ is the $j_th$ element of the vector of class scores $f$.</li>
+<li>$\frac{e^{f_i}}{\sum_j e^{f_j}}$ is the <strong>softmax</strong> function, it takes over a vector of arbitrary real-valued scores and squashes it to a vector of values between zero and one that sum to one.</li>
+</ol>
+<h3 id="Optimization-with-SGD"><a href="#Optimization-with-SGD" class="headerlink" title="Optimization with SGD"></a>Optimization with SGD</h3><p>So with loss function, we are able to build the correlation that </p>
+<script type="math/tex; mode=display">Better\, Prediction = Minimizing \, Loss \, Function</script><p>So our goal of <strong>optimization</strong> is to find $W$ which minimizes the loss function. </p>
+<h4 id="Strategy-1-A-very-bad-solution-Random-Search"><a href="#Strategy-1-A-very-bad-solution-Random-Search" class="headerlink" title="Strategy 1: A very bad solution: Random Search"></a>Strategy 1: A very bad solution: <strong>Random Search</strong></h4><p><strong>What should we do?</strong><br><blockquote class="blockquote-center"><p>Core idea: iterative refinement. </p>
+</blockquote><br>Of course, it turns out that we can do much better than this random search. The core idea is that finding the best set of weights W is a very difficult or even impossible problem (especially once W contains weights for entire complex neural networks), but the problem of refining a specific set of weights W to be slightly better is significantly less difficult. In other words, our approach will be to start with a random W and then iteratively refine it, making it slightly better each time.<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">bestloss = float(<span class="string">"inf"</span>) <span class="comment"># Python assigns the highest possible float value</span></div><div class="line"><span class="keyword">for</span> num <span class="keyword">in</span> xrange(<span class="number">1000</span>):</div><div class="line">    W = np.random.randn(<span class="number">10</span>, <span class="number">3073</span>) * <span class="number">0.0001</span> <span class="comment"># generate random parameters</span></div><div class="line">    loss = L(X_train, Y_train, W) <span class="comment"># get the loss over the entire training set</span></div><div class="line">    <span class="keyword">if</span> loss &lt; bestloss: <span class="comment"># keep track of the best solution</span></div><div class="line">        bestloss = loss</div><div class="line">        bestW = W</div><div class="line">    <span class="keyword">print</span> <span class="string">'in attempt %d the loss was %f, best %f'</span> % (num, loss, bestloss)</div></pre></td></tr></table></figure></p>
+<h4 id="Strategy-2-Random-Local-Search-Slightly-Better"><a href="#Strategy-2-Random-Local-Search-Slightly-Better" class="headerlink" title="Strategy 2: Random Local Search (Slightly Better)"></a>Strategy 2: <strong>Random Local Search</strong> (Slightly Better)</h4><p>So a little better solution is:</p>
+<ol>
+<li>Do the same random search </li>
+<li>but only proceed if less loss.</li>
+</ol>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">W = np.random.randn(<span class="number">10</span>, <span class="number">3073</span>) * <span class="number">0.001</span> <span class="comment"># generate random starting W</span></div><div class="line">bestloss = float(<span class="string">"inf"</span>)</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> xrange(<span class="number">1000</span>):</div><div class="line">    step_size = <span class="number">0.0001</span></div><div class="line">    Wtry = W + np.random.randn(<span class="number">10</span>, <span class="number">3073</span>) * step_size</div><div class="line">    loss = L(Xtr_cols, Ytr, Wtry)</div><div class="line">    <span class="keyword">if</span> loss &lt; bestloss:</div><div class="line">        W = Wtry</div><div class="line">        bestloss = loss</div><div class="line">        <span class="keyword">print</span> <span class="string">'iter %d loss is %f'</span> % (i, bestloss)</div></pre></td></tr></table></figure>
+<h4 id="Strategy-3-Following-the-Gradient"><a href="#Strategy-3-Following-the-Gradient" class="headerlink" title="Strategy 3: Following the Gradient"></a>Strategy 3: Following the <strong>Gradient</strong></h4><p>It turns out that there is no need to randomly search for a good direction: we can compute the best direction along which we should change our weight vector that is mathematically guaranteed to be the direction of the steepest descend (at least in the limit as the step size goes towards zero). This direction will be related to the <strong>gradient</strong> of the loss function. </p>
+<p>In our hiking analogy, this approach roughly corresponds to feeling the slope of the hill below our feet and stepping down the direction that feels steepest.</p>
+<p><strong>Computing the Gradient</strong></p>
+<p>There are two ways of computing gradient:</p>
+<ol>
+<li><p>Numerical Gradient</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">eval_numerical_gradient</span><span class="params">(f, x)</span>:</span></div><div class="line">    <span class="string">""" </span></div><div class="line"><span class="string">    a naive implementation of numerical gradient of f at x </span></div><div class="line"><span class="string">    - f should be a function that takes a single argument</span></div><div class="line"><span class="string">    - x is the point (numpy array) to evaluate the gradient at</span></div><div class="line"><span class="string">    """</span> </div><div class="line"></div><div class="line">    fx = f(x) <span class="comment"># evaluate function value at original point</span></div><div class="line">    grad = np.zeros(x.shape)</div><div class="line">    h = <span class="number">0.00001</span></div><div class="line"></div><div class="line">    <span class="comment"># iterate over all indexes in x</span></div><div class="line">    it = np.nditer(x, flags=[<span class="string">'multi_index'</span>], op_flags=[<span class="string">'readwrite'</span>])</div><div class="line">    <span class="keyword">while</span> <span class="keyword">not</span> it.finished:</div><div class="line">nction at x+h</div><div class="line">        ix = it.multi_index</div><div class="line">        old_value = x[ix]</div><div class="line">        x[ix] = old_value + h <span class="comment"># increment by h</span></div><div class="line">        fxh = f(x) <span class="comment"># evalute f(x + h)</span></div><div class="line">        x[ix] = old_value <span class="comment"># restore to previous value (very important!)</span></div><div class="line"></div><div class="line">        <span class="comment"># compute the partial derivative</span></div><div class="line">        grad[ix] = (fxh - fx) / h <span class="comment"># the slope</span></div><div class="line">        it.iternext() <span class="comment"># step to next dimension</span></div><div class="line"></div><div class="line">        <span class="keyword">return</span> grad</div><div class="line">    </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">CIFAR10_loss_fun</span><span class="params">(W)</span>:</span></div><div class="line">    <span class="keyword">return</span> L(X_train, Y_train, W)</div><div class="line"></div><div class="line">W = np.random.rand(<span class="number">10</span>, <span class="number">3073</span>) * <span class="number">0.001</span> <span class="comment"># random weight vector</span></div><div class="line">df = eval_numerical_gradient(CIFAR10_loss_fun, W) <span class="comment"># get the gradient</span></div><div class="line"></div><div class="line">loss_original = CIFAR10_loss_fun(W) <span class="comment"># the original loss</span></div><div class="line"><span class="keyword">print</span> <span class="string">'original loss: %f'</span> % (loss_original, )</div><div class="line"></div><div class="line"><span class="keyword">for</span> step_size_log <span class="keyword">in</span> [<span class="number">-10</span>, <span class="number">-9</span>, <span class="number">-8</span>, <span class="number">-7</span>, <span class="number">-6</span>, <span class="number">-5</span>,<span class="number">-4</span>,<span class="number">-3</span>,<span class="number">-2</span>,<span class="number">-1</span>]:</div><div class="line">    step_size = <span class="number">10</span> ** step_size_log</div><div class="line">    W_new = W - step_size * df <span class="comment"># new position in the weight space</span></div><div class="line">    loss_new = CIFAR10_loss_fun(W_new)</div><div class="line">    <span class="keyword">print</span> <span class="string">'for step size %f new loss: %f'</span> % (step_size, loss_new)</div></pre></td></tr></table></figure>
+</li>
+<li><p>Analytic Gradient<br>Because of the fact numerical gradient are expensive to compute for datasets with millions of features which is very common for DNNs. ( Because each step needs to compute the gradient for each feature, so it is linear complexity).</p>
+</li>
+</ol>
+<p>We normally use the other option: <strong>analytic gradient</strong>.</p>
+<p>In which we use a direct formula for the gradient which is way faster to compute.<br>Suppose we have the SVM loss function for a single data point as follows:</p>
+<script type="math/tex; mode=display">L_i = \sum_{j \ne y_i} [max(0, w_j^Tx_i - w_{y_i}^Tx_i + \Delta)]</script><p>And we can differentiate the function w/ respect to weights $W$. $e.g.$, taking the gradient with respect to $w_{y_i}$ we can obtain:</p>
+<script type="math/tex; mode=display">\nabla_{w_j}  L_i = - \left( \sum_{j \ne y_i}  \mathbb{1} (w_j^Tx_i - w_{y_i}^Tx_i + \Delta > 0) \right) x_i</script><p>where $\mathbb{1}$ is the indicator function which</p>
+<ol>
+<li>if the condition inside is true, it evals to 1</li>
+<li>if false, it evals to 0</li>
+</ol>
+<p>The function looks confusing but at its essence, it is equivalent to:</p>
+<p>Count the number of classes that didn’t meet the desired margin $\Delta$ and scale the data vector $x_i$ by this margin. And the result is the gradient.</p>
+<h3 id="Gradient-Descent"><a href="#Gradient-Descent" class="headerlink" title="Gradient Descent"></a>Gradient Descent</h3><p>Now we can compute the gradient of the loss function, the procedure of repeatedly evaluating the gradient and then performing a parameter update is called <em>Gradient Descent</em>. A vanilla version looks like this:<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    weights_grad = evaluate_gradient(loss_fun, data, weights)</div><div class="line">    weights += - step_size * weights_grad <span class="comment">#</span></div></pre></td></tr></table></figure></p>
+<p><strong>This simple loop is the core of every nueural network libs. </strong><br>There are a few different methods of gradient descent:</p>
+<ol>
+<li>Batch Gradient Descent</li>
+<li>Mini-Batch Gradient Descent</li>
+<li>Stochastic Gradietn Descent</li>
+</ol>
+<p><strong> Mini-Batch Gradient Descent </strong> is the mostly used one and often refered as <strong>SGD</strong>. It takes a random batch of (32, 64, 128, 256) arbitrary number of samples and compute gradient descent on it and update the parameters(weights) every time. A vanilla version looks like this:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">while</span> <span class="keyword">True</span>:</div><div class="line">    data_batch = sample_training_data(data, <span class="number">256</span>) <span class="comment"># sample 256 examples</span></div><div class="line">    weights_grad = evaluate_gradient(loss_fun, data_batch, weights)</div><div class="line">    weights += - step_size * weights_grad <span class="comment"># perform parameter update</span></div></pre></td></tr></table></figure>
+<h3 id="Backpropagation-Gradient-Descent-using-reverse-mode-autodiff"><a href="#Backpropagation-Gradient-Descent-using-reverse-mode-autodiff" class="headerlink" title="Backpropagation (Gradient Descent using reverse-mode autodiff)"></a>Backpropagation (Gradient Descent using reverse-mode autodiff)</h3><p>An ANN(MLP, multi-layer perceptron) is composed of a input layer and n (n $\geq$ 1) hidden layers and one final layer. Every layer except the output layer includes a bias neuron and is fully connected to next layer. When an ANN has $\geq$ 2 hidden layers, it is called a DNN.</p>
+<p>But for years people struggle to find a way to train DNN uintil backpropagation.</p>
+<p>For each trainning instance, the algorithm feeds it to the network and computes the output of every neuron in each consecutive layer. (Known as the forward pass). Then it measures the ouput error of the network and it computes how much each neuron in hte last hidden layer contributed to each output neuron’s error. It then proceeds to measure how much of these error contributions comes from the previous hidden layer. And this logic carries on until the algorithm reaches the input layer. </p>
+<p>Eventually, this reverse pass efficently measures the error gradient accross all the connection wieghts in the DNN by propagating the error gradient backward in the network. </p>
+<p>In short, for each training instance the backpropagation algorithm first makes a prediction by some scheme (<strong>the forward pass</strong>). Then it measures the error of this prediction then goes through each layer in each layer in reverse order to measure the error contribution from each connection (<strong>the reverse pass</strong>). And slightly tweaks the connection weights to reduce the error (<strong>Gradient Dscent step</strong>). </p>
+<p>The Math details is skipped here, for details checkout here: <a href="http://cs231n.github.io/optimization-2/" target="_blank" rel="external">Back Propagation</a>.</p>
+<h3 id="The-code"><a href="#The-code" class="headerlink" title="The code"></a>The code</h3><p>So now we have a basic understanding of how Vgg works behind the scene and some fundaments about DNN. It’s time to dig what’s happening in the finetuning step. Basically, we just need to converge the 1000-categories output to our 2-categories output. </p>
+<p>How can we do that?</p>
+<p>Just apply a DNN to it:</p>
+<ol>
+<li>Take the 1000 categories result as an input array of shape <code>[1000, 1]</code>.</li>
+<li>Train a DNN to fit the <code>[1000, 1]</code> input to <code>[2, 1]</code> ouput using the training set.</li>
+<li>Remove the original <code>1000 categories</code> layer and append our new layer.</li>
+</ol>
+<p>Checkout the <a href="https://github.com/xingfanxia/learn_fast_ai/blob/master/Lesson%202%20Linear%20Model%20with%20CNN%20Features%20--%20Active%20Recall.ipynb" target="_blank" rel="external">Source Code</a> here for details.</p>
+<h3 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h3><ul>
+<li><a href="http://wiki.fast.ai/index.php/Lesson_2_Notes" target="_blank" rel="external">Fast.ai Lesson 2</a></li>
+<li><a href="http://cs231n.github.io/" target="_blank" rel="external">CS231n Convolutional Neural Networks for Visual Recognition</a></li>
+<li><a href="https://arxiv.org/abs/1311.2901" target="_blank" rel="external">Visualizing and Understanding Convolutional Networks</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大佬请我喝维他柠檬茶吧 Buy me some Vita lemon tea!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Xingfan Xia WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Xingfan Xia Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Xingfan Xia
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/" title="Vgg Overview and Build a Linear Model With CNN Features">http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+            <a href="/tags/Deep-Learning/" rel="tag"># Deep Learning</a>
+          
+            <a href="/tags/Image-Recognition/" rel="tag"># Image Recognition</a>
+          
+            <a href="/tags/Vgg/" rel="tag"># Vgg</a>
+          
+            <a href="/tags/Tutorial/" rel="tag"># Tutorial</a>
+          
+            <a href="/tags/Linear-Model/" rel="tag"># Linear Model</a>
+          
+            <a href="/tags/Maths/" rel="tag"># Maths</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/08/31/deep_learning_image_recognition/" rel="next" title="Fast.ai Overview and Image Recognition With DNN">
+                <i class="fa fa-chevron-left"></i> Fast.ai Overview and Image Recognition With DNN
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/09/03/anti-music163-pac/" rel="prev" title="Unlock China-Only Access Restriction PAC解除地区限制(网易云音乐, Bilibili番剧等)">
+                Unlock China-Only Access Restriction PAC解除地区限制(网易云音乐, Bilibili番剧等) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg"
+                alt="Xingfan Xia" />
+            
+              <p class="site-author-name" itemprop="name">Xingfan Xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xingfanxia" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/ruuuuaaaa/" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam-square"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/xingfanxia/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin-square"></i>Linkedin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xingfanxia@gmail.com" target="_blank" title="E-mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Preface"><span class="nav-number">1.</span> <span class="nav-text">Preface</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#So-what’s-magic-happening-in-Lesson-1"><span class="nav-number">2.</span> <span class="nav-text">So what’s magic happening in Lesson 1?</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#What-is-Vgg"><span class="nav-number">2.1.</span> <span class="nav-text">What is Vgg?</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DNN"><span class="nav-number">3.</span> <span class="nav-text">DNN</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Loss-Functions"><span class="nav-number">4.</span> <span class="nav-text">Loss Functions</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#SVM-as-Loss-Function"><span class="nav-number">4.1.</span> <span class="nav-text">SVM as Loss Function</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#SVM-Multiclass-Support-Vector-Machine-loss"><span class="nav-number">4.2.</span> <span class="nav-text">SVM (Multiclass Support Vector Machine loss)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Regularization-for-SVM"><span class="nav-number">4.3.</span> <span class="nav-text">Regularization for SVM</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Softmax-as-Loss-Function"><span class="nav-number">5.</span> <span class="nav-text">Softmax as Loss Function</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Optimization-with-SGD"><span class="nav-number">6.</span> <span class="nav-text">Optimization with SGD</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Strategy-1-A-very-bad-solution-Random-Search"><span class="nav-number">6.1.</span> <span class="nav-text">Strategy 1: A very bad solution: Random Search</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Strategy-2-Random-Local-Search-Slightly-Better"><span class="nav-number">6.2.</span> <span class="nav-text">Strategy 2: Random Local Search (Slightly Better)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Strategy-3-Following-the-Gradient"><span class="nav-number">6.3.</span> <span class="nav-text">Strategy 3: Following the Gradient</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Gradient-Descent"><span class="nav-number">7.</span> <span class="nav-text">Gradient Descent</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Backpropagation-Gradient-Descent-using-reverse-mode-autodiff"><span class="nav-number">8.</span> <span class="nav-text">Backpropagation (Gradient Descent using reverse-mode autodiff)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#The-code"><span class="nav-number">9.</span> <span class="nav-text">The code</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Reference"><span class="nav-number">10.</span> <span class="nav-text">Reference</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xingfan Xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xingfanstechblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.xiax.ai/2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/';
+          this.page.identifier = '2017/09/01/DNN-overview-and-Linear-model-with-CNN-features/';
+          this.page.title = 'Vgg Overview and Build a Linear Model With CNN Features';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xingfanstechblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("yYIRJGQTTs0YBloBgezdtg6O-gzGzoHsz", "AUwhPmvz3tXkoh8bcn1CMakc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>

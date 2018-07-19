@@ -1,0 +1,1490 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Technical Interview,Python," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Arrays: Left Rotation A left rotation operation on an array of size  shifts each of the array’s elements  unit to the left. For example, if  left rotations are performed on array , then the array woul">
+<meta name="keywords" content="Technical Interview,Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Technical Interview Practices">
+<meta property="og:url" content="http://blog.xiax.ai/2016/11/06/Code Challenges/index.html">
+<meta property="og:site_name" content="Coder For Fun | Xingfan&#39;s Tech Blog">
+<meta property="og:description" content="Arrays: Left Rotation A left rotation operation on an array of size  shifts each of the array’s elements  unit to the left. For example, if  left rotations are performed on array , then the array woul">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2018-07-19T04:10:14.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Technical Interview Practices">
+<meta name="twitter:description" content="Arrays: Left Rotation A left rotation operation on an array of size  shifts each of the array’s elements  unit to the left. For example, if  left rotations are performed on array , then the array woul">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.xiax.ai/2016/11/06/Code Challenges/"/>
+
+
+
+
+
+  <title>Technical Interview Practices | Coder For Fun | Xingfan's Tech Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-65724730-3', 'auto');
+  ga('send', 'pageview');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coder For Fun | Xingfan's Tech Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Random Stuff Randonly Updated</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-projects">
+          <a href="/projects" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code-fork"></i> <br />
+            
+            projects
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://xiax.ai" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.xiax.ai/2016/11/06/Code Challenges/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingfan Xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coder For Fun | Xingfan's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Technical Interview Practices</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2016-11-06T20:17:39-08:00">
+                2016-11-06
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-07-18T21:10:14-07:00">
+                2018-07-18
+              </time>
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Technical-Interview/" itemprop="url" rel="index">
+                    <span itemprop="name">Technical Interview</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2016/11/06/Code Challenges/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2016/11/06/Code Challenges/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2016/11/06/Code Challenges/" class="leancloud_visitors" data-flag-title="Technical Interview Practices">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="Words count in article">
+                  2,540
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="Reading time">
+                  16
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="Arrays-Left-Rotation"><a href="#Arrays-Left-Rotation" class="headerlink" title="Arrays: Left Rotation"></a>Arrays: Left Rotation</h3><blockquote>
+<p>A left rotation operation on an array of size  shifts each of the array’s elements  unit to the left. For example, if  left rotations are performed on array , then the array would become . </p>
+<p>Given an array of  integers and a number, , perform  left rotations on the array. Then print the updated array as a single line of space-separated integers.</p>
+<p>Problem at <a href="https://www.hackerrank.com/challenges/ctci-array-left-rotation" target="_blank" rel="external">https://www.hackerrank.com/challenges/ctci-array-left-rotation</a></p>
+</blockquote>
+<a id="more"></a>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">array_left_rotation</span><span class="params">(a, n, k)</span>:</span></div><div class="line"> <span class="comment"># a for array, n for #(elements), k for shift</span></div><div class="line"> <span class="keyword">return</span> a[k:] + a[:k]</div></pre></td></tr></table></figure>
+<h3 id="Strings-Making-Anagrams"><a href="#Strings-Making-Anagrams" class="headerlink" title="Strings: Making Anagrams"></a>Strings: Making Anagrams</h3><blockquote>
+<p>Problem at <a href="https://www.hackerrank.com/challenges/ctci-making-anagrams" target="_blank" rel="external">https://www.hackerrank.com/challenges/ctci-making-anagrams</a> Alice is taking a cryptography class and finding anagrams to be very useful. We consider two strings to be anagrams of each other if the first string’s letters can be rearranged to form the second string. In other words, both strings must contain the same exact letters in the same exact frequency For example, bacdc and dcbac are anagrams, but bacdc and dcbad are not.</p>
+<p>Alice decides on an encryption scheme involving two large strings where encryption is dependent on the minimum number of character deletions required to make the two strings anagrams. Can you help her find this number?</p>
+<p>Given two strings, <code>a</code> and <code>b</code> , that may or may not be of the same length, determine the minimum number of character deletions required to make <code>a</code> and <code>b</code> anagrams. Any characters can be deleted from either of the strings.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">deletion_needed_for_anagrams</span><span class="params">(word1, word2)</span>:</span></div><div class="line"> <span class="comment">#create an empty dictionary</span></div><div class="line"> charMap = &#123;&#125;</div><div class="line"></div><div class="line"> <span class="comment">#loop through all letters in word1, count the frequency of each</span></div><div class="line"> <span class="keyword">for</span> c <span class="keyword">in</span> word1:</div><div class="line">     <span class="keyword">if</span> c <span class="keyword">in</span> charMap:</div><div class="line">         charMap[c] = charMap[c]+<span class="number">1</span></div><div class="line">     <span class="keyword">else</span>:</div><div class="line">         charMap[c] = <span class="number">1</span></div><div class="line"></div><div class="line"> deletions = <span class="number">0</span></div><div class="line"></div><div class="line"> <span class="comment">#match with the letters in word2</span></div><div class="line"> <span class="keyword">for</span> c <span class="keyword">in</span> word2:</div><div class="line">     <span class="keyword">if</span> c <span class="keyword">in</span> charMap:</div><div class="line">         <span class="keyword">if</span> charMap[c] &gt; <span class="number">0</span>: <span class="comment">#common letters</span></div><div class="line">             charMap[c] = charMap[c]<span class="number">-1</span></div><div class="line">         <span class="keyword">else</span>:              <span class="comment">#count mismatch</span></div><div class="line">             deletions = deletions+<span class="number">1</span></div><div class="line">     <span class="keyword">else</span>:</div><div class="line">         deletions = deletions+<span class="number">1</span> <span class="comment">#present only in word2</span></div><div class="line"> </div><div class="line"> <span class="comment">#If there are more characters in first word, delete them</span></div><div class="line"> <span class="keyword">for</span> c <span class="keyword">in</span> charMap:</div><div class="line">     <span class="keyword">if</span> charMap[c] &gt; <span class="number">0</span>:</div><div class="line">         deletions = deletions + charMap[c]</div><div class="line"> </div><div class="line"> <span class="keyword">return</span> deletions</div></pre></td></tr></table></figure>
+<h3 id="Hash-Tables-Ransom-Note"><a href="#Hash-Tables-Ransom-Note" class="headerlink" title="Hash Tables: Ransom Note"></a>Hash Tables: Ransom Note</h3><blockquote>
+<p>Problem at <a href="https://www.hackerrank.com/challenges/ctci-ransom-note" target="_blank" rel="external">https://www.hackerrank.com/challenges/ctci-ransom-note</a></p>
+<p>A kidnapper wrote a ransom note but is worried it will be traced back to him. He found a magazine and wants to know if he can cut out whole words from it and use them to create an untraceable replica of his ransom note. The words in his note are case-sensitive and he must use whole words available in the magazine, meaning he cannot use substrings or concatenation to create the words he needs.</p>
+<p>Given the words in the magazine and the words in the ransom note, print Yes if he can replicate his ransom note exactly using whole words from the magazine; otherwise, print No.A kidnapper wrote a ransom note but is worried it will be traced back to him. He found a magazine and wants to know if he can cut out whole words from it and use them to create an untraceable replica of his ransom note. The words in his note are case-sensitive and he must use whole words available in the magazine, meaning he cannot use substrings or concatenation to create the words he needs.</p>
+<p>Given the words in the magazine and the words in the ransom note, print Yes if he can replicate his ransom note exactly using whole words from the magazine; otherwise, print No.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">ransom_note</span><span class="params">(magazine, rasom)</span>:</span></div><div class="line">    map = &#123;&#125;</div><div class="line">    <span class="keyword">for</span> word <span class="keyword">in</span> magazine:</div><div class="line">        <span class="keyword">if</span> word <span class="keyword">in</span> map:</div><div class="line">            map[word] = map[word] + <span class="number">1</span></div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            map[word] = <span class="number">1</span></div><div class="line">    <span class="keyword">for</span> f <span class="keyword">in</span> rasom:</div><div class="line">        <span class="keyword">if</span> (map[f] == <span class="number">0</span>):</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">        map[f] = map[f] - <span class="number">1</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<h3 id="Linked-Lists-Detect-a-Cycle"><a href="#Linked-Lists-Detect-a-Cycle" class="headerlink" title="Linked Lists: Detect a Cycle"></a>Linked Lists: Detect a Cycle</h3><blockquote>
+<p>Problem at <a href="https://www.hackerrank.com/challenges/ctci-linked-list-cycle" target="_blank" rel="external">https://www.hackerrank.com/challenges/ctci-linked-list-cycle</a></p>
+<p>Detect a cycle in a linked list. Note that the head pointer may be ‘None’ if the list is empty.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="string">"""</span></div><div class="line"><span class="string">A Node is defined as: </span></div><div class="line"><span class="string">    class Node(object):</span></div><div class="line"><span class="string">        def __init__(self, data = None, next_node = None):</span></div><div class="line"><span class="string">            self.data = data</span></div><div class="line"><span class="string">            self.next = next_node</span></div><div class="line"><span class="string">"""</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, data = None, next_node = None)</span>:</span></div><div class="line">        self.data = data</div><div class="line">        self.next = next_node</div><div class="line">        </div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_cycle</span><span class="params">(head)</span>:</span></div><div class="line">    cur = head</div><div class="line">    ls = []</div><div class="line">    <span class="keyword">while</span> (cur.next <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>):</div><div class="line">        <span class="keyword">if</span> cur <span class="keyword">in</span> ls:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span></div><div class="line">        ls.append(cur)</div><div class="line">        cur = cur.next</div><div class="line">    <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">has_cycle_better</span><span class="params">(head)</span>:</span></div><div class="line">    d = dict()</div><div class="line">    <span class="keyword">while</span> (head <span class="keyword">is</span> <span class="keyword">not</span> <span class="keyword">None</span>):</div><div class="line">        <span class="keyword">if</span> head.val <span class="keyword">in</span> d:</div><div class="line">            <span class="keyword">return</span> d[head.val]</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            d[head.val] = head</div><div class="line">        head = head.next</div></pre></td></tr></table></figure>
+<h3 id="Stacks-Balanced-Brackets"><a href="#Stacks-Balanced-Brackets" class="headerlink" title="Stacks: Balanced Brackets"></a>Stacks: Balanced Brackets</h3><blockquote>
+<p>Problem at <a href="https://www.hackerrank.com/challenges/ctci-balanced-brackets" target="_blank" rel="external">https://www.hackerrank.com/challenges/ctci-balanced-brackets</a></p>
+<p>A bracket is considered to be any one of the following characters:<code>(</code>,<code>)</code>,<code>{</code>,<code>}</code>, <code>[</code>, or <code>]</code>.</p>
+<p>Two brackets are considered to be a matched pair if the an opening bracket (i.e., (, [, or {) occurs to the left of a closing bracket (i.e., ), ], or }) of the exact same type. There are three types of matched pairs of brackets: [], {}, and ().</p>
+<p>A matching pair of brackets is not balanced if the set of brackets it encloses are not matched. For example, {[(])} is not balanced because the contents in between { and } are not balanced. The pair of square brackets encloses a single, unbalanced opening bracket, (, and the pair of parentheses encloses a single, unbalanced closing square bracket, ].</p>
+<p>By this logic, we say a sequence of brackets is considered to be balanced if the following conditions are met:</p>
+<ul>
+<li>It contains no unmatched brackets.</li>
+<li>The subset of brackets enclosed within the confines of a matched pair of brackets is also a matched pair of brackets.</li>
+</ul>
+<p>Given  strings of brackets, determine whether each sequence of brackets is balanced. If a string is balanced, print YES on a new line; otherwise, print NO on a new line.</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">is_matched</span><span class="params">(expression)</span>:</span></div><div class="line">    dic = &#123;<span class="string">'&#123;'</span>:<span class="string">'&#125;'</span>,<span class="string">'['</span>:<span class="string">']'</span>,<span class="string">'('</span>:<span class="string">')'</span>&#125;</div><div class="line">    lst =[]</div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> expression:</div><div class="line">        <span class="keyword">if</span> i <span class="keyword">in</span> dic.keys():</div><div class="line">            lst.append(dic[i])</div><div class="line">        <span class="keyword">elif</span> len(lst)&gt;<span class="number">0</span> <span class="keyword">and</span> i==lst[<span class="number">-1</span>]:</div><div class="line">            lst.pop()</div><div class="line">        <span class="keyword">else</span>: </div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">    <span class="keyword">return</span> len(lst) == <span class="number">0</span></div></pre></td></tr></table></figure>
+<h3 id="Implement-A-Queue-using-Two-Stacks"><a href="#Implement-A-Queue-using-Two-Stacks" class="headerlink" title="Implement A Queue using Two Stacks"></a>Implement A Queue using Two Stacks</h3><blockquote>
+<p>Problem at <a href="https://www.hackerrank.com/challenges/ctci-balanced-brackets" target="_blank" rel="external">https://www.hackerrank.com/challenges/ctci-balanced-brackets</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyQueue</span><span class="params">(object)</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.inbox =  []</div><div class="line">        self.outbox = []</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">peek</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.outbox:</div><div class="line">            <span class="keyword">while</span> self.inbox:</div><div class="line">                self.outbox.append(self.inbox.pop())</div><div class="line">        <span class="keyword">return</span> self.outbox[len(self.outbox)<span class="number">-1</span>]</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">pop</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> self.outbox:</div><div class="line">            <span class="keyword">while</span> self.inbox:</div><div class="line">                self.outbox.append(self.inbox.pop())</div><div class="line">        <span class="keyword">return</span> self.outbox.pop()</div><div class="line">        </div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">put</span><span class="params">(self, value)</span>:</span></div><div class="line">        self.inbox.append(value)</div></pre></td></tr></table></figure>
+<h3 id="GCD"><a href="#GCD" class="headerlink" title="GCD"></a>GCD</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcd</span><span class="params">(A, B)</span>:</span></div><div class="line">      <span class="keyword">while</span> B:</div><div class="line">          A, B = B, A%B</div><div class="line">      <span class="keyword">return</span> A</div><div class="line"><span class="comment"># or</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># @param A : integer</span></div><div class="line">    <span class="comment"># @param B : integer</span></div><div class="line">    <span class="comment"># @return an integer</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">gcd</span><span class="params">(self, a, b)</span>:</span></div><div class="line">        <span class="keyword">if</span> (b == <span class="number">0</span>):</div><div class="line">          <span class="keyword">return</span> a</div><div class="line">        <span class="keyword">else</span>:</div><div class="line">          <span class="keyword">return</span> self.gcd(b, a%b)</div></pre></td></tr></table></figure>
+<h3 id="Find-max-depth-of-a-tree"><a href="#Find-max-depth-of-a-tree" class="headerlink" title="Find max depth of a tree"></a>Find max depth of a tree</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Definition for a  binary tree node</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, x)</span>:</span></div><div class="line">        self.val = x</div><div class="line">        self.left = <span class="keyword">None</span></div><div class="line">        self.right = <span class="keyword">None</span></div><div class="line"></div><div class="line"><span class="comment">#Recursive</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># @param A : root node of tree</span></div><div class="line">    <span class="comment"># @return an integer</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span><span class="params">(self, A)</span>:</span></div><div class="line">        <span class="keyword">if</span> A == <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span>     </div><div class="line">        <span class="keyword">return</span> max(self.maxDepth(A.left), self.maxDepth(A.right)) + <span class="number">1</span></div><div class="line">    </div><div class="line"><span class="comment">#Iterative</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># @param root, a tree node</span></div><div class="line">    <span class="comment"># @return an integer</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">maxDepth</span><span class="params">(self, root)</span>:</span></div><div class="line">        <span class="keyword">if</span> root == <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">return</span> <span class="number">0</span></div><div class="line">        nodeStack = [root];</div><div class="line">        depthStack = [<span class="number">1</span>];</div><div class="line">        maxDepth = <span class="number">0</span>;</div><div class="line">        <span class="keyword">while</span> len(nodeStack)&gt;<span class="number">0</span>:</div><div class="line">            node = nodeStack.pop();</div><div class="line">            depth = depthStack.pop();</div><div class="line">            maxDepth = maxDepth <span class="keyword">if</span> maxDepth &gt; depth <span class="keyword">else</span> depth</div><div class="line">            <span class="keyword">if</span> node.left != <span class="keyword">None</span>:</div><div class="line">                nodeStack.append(node.left)</div><div class="line">                depthStack.append(depth+<span class="number">1</span>)</div><div class="line">            <span class="keyword">if</span> node.right != <span class="keyword">None</span>:</div><div class="line">                nodeStack.append(node.right)</div><div class="line">                depthStack.append(depth+<span class="number">1</span>)</div><div class="line">        <span class="keyword">return</span> maxDepth</div><div class="line">    </div><div class="line"><span class="comment"># Test</span></div><div class="line">root = TreeNode(<span class="number">10</span>)</div><div class="line">five = TreeNode(<span class="number">5</span>)</div><div class="line">two = TreeNode(<span class="number">2</span>)</div><div class="line">four = TreeNode(<span class="number">4</span>)</div><div class="line">eight = TreeNode(<span class="number">8</span>)</div><div class="line"></div><div class="line">root.left = five</div><div class="line">five.left = two</div><div class="line">two.left = eight</div><div class="line"></div><div class="line">root.right = four</div><div class="line"></div><div class="line">sol = Solution()</div><div class="line"><span class="keyword">print</span> sol.maxDepth(root)</div></pre></td></tr></table></figure>
+<h3 id="Flatten-a-tree"><a href="#Flatten-a-tree" class="headerlink" title="Flatten a tree"></a>Flatten a tree</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Definition for a  binary tree node</span></div><div class="line"><span class="comment"># class TreeNode:</span></div><div class="line"><span class="comment">#     def __init__(self, x):</span></div><div class="line"><span class="comment">#         self.val = x</span></div><div class="line"><span class="comment">#         self.left = None</span></div><div class="line"><span class="comment">#         self.right = None</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span>:</span></div><div class="line">    <span class="comment"># @param root, a tree node</span></div><div class="line">    <span class="comment"># @return nothing, do it in place</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">flatten</span><span class="params">(self, root)</span>:</span></div><div class="line">        <span class="keyword">while</span> root != <span class="keyword">None</span>:</div><div class="line">            <span class="keyword">if</span> root.left != <span class="keyword">None</span>:</div><div class="line">                pre = root.left</div><div class="line">                <span class="keyword">while</span> pre.right != <span class="keyword">None</span>:</div><div class="line">                    pre = pre.right</div><div class="line">                pre.right = root.right</div><div class="line">                root.right = root.left</div><div class="line">                root.left = <span class="keyword">None</span></div><div class="line">            root = root.right</div></pre></td></tr></table></figure>
+<h3 id="Validate-BST"><a href="#Validate-BST" class="headerlink" title="Validate BST"></a>Validate BST</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="string">""" Node is defined as</span></div><div class="line"><span class="string">class node:</span></div><div class="line"><span class="string">    def __init__(self, data):</span></div><div class="line"><span class="string">        self.data = data</span></div><div class="line"><span class="string">        self.left = None</span></div><div class="line"><span class="string">        self.right = None</span></div><div class="line"><span class="string">"""</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">check_binary_search_tree_</span><span class="params">(root)</span>:</span></div><div class="line">    <span class="string">"""</span></div><div class="line"><span class="string">    :type root: TreeNode</span></div><div class="line"><span class="string">    :rtype: bool</span></div><div class="line"><span class="string">    """</span></div><div class="line">    stack = []</div><div class="line">    curr = root</div><div class="line">    prev = <span class="keyword">None</span></div><div class="line">    <span class="keyword">while</span> curr <span class="keyword">or</span> stack:</div><div class="line">        <span class="keyword">while</span> curr:</div><div class="line">            stack.append(curr)</div><div class="line">            curr = curr.left</div><div class="line"></div><div class="line">        <span class="keyword">if</span> stack:</div><div class="line">            curr = stack.pop()</div><div class="line">            <span class="keyword">if</span> prev <span class="keyword">and</span> curr.data &lt;= prev.data:</div><div class="line">                <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">            prev = curr</div><div class="line">            curr = curr.right</div><div class="line">    <span class="keyword">return</span> <span class="keyword">True</span></div></pre></td></tr></table></figure>
+<h3 id="Tries"><a href="#Tries" class="headerlink" title="Tries"></a>Tries</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># list_implementation</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, char)</span>:</span></div><div class="line">        self.char = char</div><div class="line">        self.children = []</div><div class="line">        self.words_count = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_child</span><span class="params">(self, c)</span>:</span></div><div class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> self.children:</div><div class="line">            <span class="keyword">if</span> child.char == c:</div><div class="line">                <span class="keyword">return</span> child</div><div class="line">        <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.root = Node(<span class="string">"*"</span>) <span class="comment"># token root char</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, word)</span>:</span></div><div class="line">        current = self.root</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> word:</div><div class="line">            next_node = current.get_child(i)</div><div class="line">            <span class="keyword">if</span> next_node <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">                next_node = Node(i)</div><div class="line">                current.children.append(next_node)</div><div class="line">            next_node.words_count += <span class="number">1</span></div><div class="line">            current = next_node</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, word)</span>:</span></div><div class="line">        current = self.root</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> word:</div><div class="line">            next_node = current.get_child(i)</div><div class="line">            <span class="keyword">if</span> next_node <span class="keyword">is</span> <span class="keyword">None</span>:</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span></div><div class="line">            current = next_node</div><div class="line">        <span class="keyword">return</span> current.words_count</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">n = int(input().strip())</div><div class="line">tr = Trie()</div><div class="line"><span class="keyword">for</span> a0 <span class="keyword">in</span> range(n):</div><div class="line">    op, contact = input().strip().split(<span class="string">' '</span>)</div><div class="line">    <span class="keyword">if</span> op == <span class="string">"add"</span>:</div><div class="line">        tr.add(contact)</div><div class="line">    <span class="keyword">elif</span> op == <span class="string">"find"</span>:</div><div class="line">        print(tr.find(contact))</div><div class="line"></div><div class="line"><span class="comment"># dictionary_implementation</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, char)</span>:</span></div><div class="line">        self.char = char</div><div class="line">        self.children = &#123;&#125;</div><div class="line">        self.words_count = <span class="number">0</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">get_child</span><span class="params">(self, c)</span>:</span></div><div class="line">        <span class="keyword">for</span> child <span class="keyword">in</span> self.children:</div><div class="line">            <span class="keyword">if</span> child.char == c:</div><div class="line">                <span class="keyword">return</span> child</div><div class="line">        <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Trie</span><span class="params">(object)</span>:</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></div><div class="line">        self.root = Node(<span class="string">"*"</span>) <span class="comment"># token root char</span></div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(self, word)</span>:</span></div><div class="line">        current = self.root</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> word:</div><div class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> current.children:</div><div class="line">                current.children[i] = Node(i)</div><div class="line">            current = current.children[i]</div><div class="line">            current.words_count += <span class="number">1</span></div><div class="line">            </div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">find</span><span class="params">(self, word)</span>:</span></div><div class="line">        current = self.root</div><div class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> word:</div><div class="line">            <span class="keyword">if</span> i <span class="keyword">not</span> <span class="keyword">in</span> current.children:</div><div class="line">                <span class="keyword">return</span> <span class="number">0</span></div><div class="line">            current = current.children[i]</div><div class="line">        <span class="keyword">return</span> current.words_count</div><div class="line"></div><div class="line"></div><div class="line"></div><div class="line">n = int(input().strip())</div><div class="line">tr = Trie()</div><div class="line"><span class="keyword">for</span> a0 <span class="keyword">in</span> range(n):</div><div class="line">    op, contact = input().strip().split(<span class="string">' '</span>)</div><div class="line">    <span class="keyword">if</span> op == <span class="string">"add"</span>:</div><div class="line">        tr.add(contact)</div><div class="line">    <span class="keyword">elif</span> op == <span class="string">"find"</span>:</div><div class="line">        print(tr.find(contact))</div></pre></td></tr></table></figure>
+<h3 id="Merge-sort-to-count-inversions"><a href="#Merge-sort-to-count-inversions" class="headerlink" title="Merge sort to count inversions"></a>Merge sort to count inversions</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">list_join</span><span class="params">(c,d)</span>:</span></div><div class="line">    result = []</div><div class="line">    <span class="keyword">global</span> sortCounter</div><div class="line"></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0</span>,len(c)+len(d)):</div><div class="line"></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> d:</div><div class="line">            result.append(c.pop(<span class="number">0</span>))</div><div class="line">            <span class="keyword">continue</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> <span class="keyword">not</span> c:</div><div class="line">            result.append(d.pop(<span class="number">0</span>))</div><div class="line">            <span class="keyword">continue</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> c[<span class="number">0</span>] &lt;= d[<span class="number">0</span>]:</div><div class="line">            result.append(c.pop(<span class="number">0</span>))</div><div class="line">            <span class="keyword">continue</span></div><div class="line"></div><div class="line">        <span class="keyword">if</span> d[<span class="number">0</span>] &lt; c[<span class="number">0</span>]:</div><div class="line">            sortCounter += len(c)</div><div class="line">            result.append(d.pop(<span class="number">0</span>))</div><div class="line">            <span class="keyword">continue</span></div><div class="line"></div><div class="line">    <span class="keyword">return</span> result</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">merge_sort</span><span class="params">(a)</span>:</span></div><div class="line">    <span class="keyword">if</span> len(a) == <span class="number">1</span>:</div><div class="line">        <span class="keyword">return</span> a</div><div class="line">    mid = int(len(a)/<span class="number">2</span>)</div><div class="line">    left, right = a[:mid], a[mid:]</div><div class="line">    leftSorted, rightSorted = merge_sort(left), merge_sort(right)</div><div class="line">    <span class="keyword">return</span> list_join(leftSorted, rightSorted)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">count_inversions</span><span class="params">(a)</span>:</span></div><div class="line">    <span class="keyword">global</span> sortCounter </div><div class="line">    sortCounter = <span class="number">0</span></div><div class="line">    merge_sort(a)</div><div class="line">    <span class="keyword">return</span> sortCounter</div></pre></td></tr></table></figure>
+<h3 id="Regular-Expression-Matching"><a href="#Regular-Expression-Matching" class="headerlink" title="Regular Expression Matching"></a>Regular Expression Matching</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># Implement regular expression matching with support for '.' and '*'.</span></div><div class="line"></div><div class="line"><span class="comment"># '.' Matches any single character.</span></div><div class="line"><span class="comment"># '*' Matches zero or more of the preceding element.</span></div><div class="line"></div><div class="line"><span class="comment"># The matching should cover the entire input string (not partial).</span></div><div class="line"></div><div class="line"><span class="comment"># The function prototype should be:</span></div><div class="line"><span class="comment"># bool isMatch(const char *s, const char *p)</span></div><div class="line"></div><div class="line"><span class="comment"># Some examples:</span></div><div class="line"><span class="comment"># isMatch("aa","a") → false</span></div><div class="line"><span class="comment"># isMatch("aa","aa") → true</span></div><div class="line"><span class="comment"># isMatch("aaa","aa") → false</span></div><div class="line"><span class="comment"># isMatch("aa", "a*") → true</span></div><div class="line"><span class="comment"># isMatch("aa", ".*") → true</span></div><div class="line"><span class="comment"># isMatch("ab", ".*") → true</span></div><div class="line"><span class="comment"># isMatch("aab", "c*a*b") → true</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">isMatch</span><span class="params">(s,p)</span>:</span></div><div class="line">    <span class="keyword">if</span> <span class="keyword">not</span> p:</div><div class="line">        <span class="keyword">return</span> <span class="keyword">not</span> s           </div><div class="line">    <span class="keyword">if</span> p[<span class="number">-1</span>]==<span class="string">'*'</span>:     </div><div class="line">        <span class="keyword">if</span> isMatch(s, p[:<span class="number">-2</span>]):    </div><div class="line">            <span class="keyword">return</span> <span class="keyword">True</span>               </div><div class="line">        <span class="keyword">if</span> s <span class="keyword">and</span> (s[<span class="number">-1</span>]==p[<span class="number">-2</span>] <span class="keyword">or</span> p[<span class="number">-2</span>]==<span class="string">'.'</span>):</div><div class="line">            <span class="keyword">return</span> isMatch(s[:<span class="number">-1</span>], p)           </div><div class="line">    <span class="keyword">else</span>:</div><div class="line">        <span class="keyword">if</span> s <span class="keyword">and</span> (s[<span class="number">-1</span>]==p[<span class="number">-1</span>] <span class="keyword">or</span> p[<span class="number">-1</span>]==<span class="string">'.'</span>):</div><div class="line">            <span class="keyword">return</span> isMatch(s[:<span class="number">-1</span>], p[:<span class="number">-1</span>] )    </div><div class="line">        <span class="keyword">else</span>:</div><div class="line">            <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line">    <span class="keyword">return</span> <span class="keyword">False</span></div><div class="line"></div><div class="line">print(isMatch(<span class="string">"aa"</span>,<span class="string">"a"</span>)) <span class="comment">#→ false</span></div><div class="line">print(isMatch(<span class="string">"aa"</span>,<span class="string">"aa"</span>)) <span class="comment">#→ true</span></div><div class="line">print(isMatch(<span class="string">"aaa"</span>,<span class="string">"aa"</span>)) <span class="comment">#→ false</span></div><div class="line">print(isMatch(<span class="string">"aa"</span>, <span class="string">"a*"</span>)) <span class="comment">#→ true</span></div><div class="line">print(isMatch(<span class="string">"aa"</span>, <span class="string">".*"</span>)) <span class="comment">#→ true</span></div><div class="line">print(isMatch(<span class="string">"ab"</span>, <span class="string">".*"</span>)) <span class="comment">#→ true</span></div><div class="line">print(isMatch(<span class="string">"aab"</span>, <span class="string">"c*a*b"</span>)) <span class="comment">#→ truea</span></div></pre></td></tr></table></figure>
+<h3 id="Sorting-Bubble-Sort"><a href="#Sorting-Bubble-Sort" class="headerlink" title="Sorting: Bubble Sort"></a>Sorting: Bubble Sort</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">n = int(input().strip())</div><div class="line">a = list(map(int, input().strip().split(<span class="string">' '</span>)))</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">bubble_sort</span><span class="params">(array)</span>:</span></div><div class="line">    total_num = <span class="number">0</span></div><div class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(array)):</div><div class="line">        num_swaps = <span class="number">0</span></div><div class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(len(array)<span class="number">-1</span>):</div><div class="line">            <span class="keyword">if</span> a[j+<span class="number">1</span>]&lt;a[j]:</div><div class="line">                temp = a[j]</div><div class="line">                a[j] = a[j+<span class="number">1</span>]</div><div class="line">                a[j+<span class="number">1</span>] = temp</div><div class="line">                num_swaps += <span class="number">1</span></div><div class="line">                total_num += <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> (num_swaps == <span class="number">0</span>):</div><div class="line">            <span class="keyword">break</span></div><div class="line">    <span class="keyword">return</span> total_num</div><div class="line"></div><div class="line">num = bubble_sort(a)</div><div class="line">print(<span class="string">"Array is sorted in &#123;&#125; swaps."</span>.format(num))</div><div class="line">print(<span class="string">"First Element:"</span>, a[<span class="number">0</span>])</div><div class="line">print(<span class="string">"Last Element:"</span>, a[len(a)<span class="number">-1</span>])</div></pre></td></tr></table></figure>
+<h3 id="Sorting-Comparator"><a href="#Sorting-Comparator" class="headerlink" title="Sorting: Comparator"></a>Sorting: Comparator</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> cmp_to_key</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Player</span>:</span></div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self, name, score)</span>:</span></div><div class="line">        self.name = name</div><div class="line">        self.score = score</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__repr__</span><span class="params">(self)</span>:</span></div><div class="line">        <span class="keyword">return</span> name + <span class="string">"  "</span> + str(score)</div><div class="line">    <span class="function"><span class="keyword">def</span> <span class="title">comparator</span><span class="params">(a, b)</span>:</span></div><div class="line">        <span class="keyword">if</span> a.score &lt; b.score:</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span></div><div class="line">        <span class="keyword">if</span> a.score &gt; b.score:</div><div class="line">            <span class="keyword">return</span> <span class="number">-1</span></div><div class="line">        <span class="keyword">if</span> a.name &lt; b.name:</div><div class="line">            <span class="keyword">return</span> <span class="number">-1</span></div><div class="line">        <span class="keyword">if</span> a.name &gt; b.name:</div><div class="line">            <span class="keyword">return</span> <span class="number">1</span></div><div class="line">        <span class="keyword">return</span> <span class="number">0</span></div><div class="line">n = int(input())</div><div class="line">data = []</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(n):</div><div class="line">    name, score = input().split()</div><div class="line">    score = int(score)</div><div class="line">    player = Player(name, score)</div><div class="line">    data.append(player)</div><div class="line">    </div><div class="line">data = sorted(data, key=cmp_to_key(Player.comparator))</div><div class="line"><span class="keyword">for</span> i <span class="keyword">in</span> data:</div><div class="line">    print(i.name, i.score)</div></pre></td></tr></table></figure>
+<h3 id="Binary-Search-Ice-Cream-Parlor"><a href="#Binary-Search-Ice-Cream-Parlor" class="headerlink" title="Binary Search: Ice Cream Parlor"></a>Binary Search: Ice Cream Parlor</h3><h4 id="Binary-Search-Approach-By-AllisonP"><a href="#Binary-Search-Approach-By-AllisonP" class="headerlink" title="Binary Search Approach By AllisonP"></a>Binary Search Approach By AllisonP</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> java.util.*;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">IceCream</span> <span class="keyword">implements</span> <span class="title">Comparable</span></span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> cost;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> id;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IceCream</span><span class="params">(<span class="keyword">int</span> cost, <span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.cost = cost;</div><div class="line">        <span class="keyword">this</span>.id = index;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">compareTo</span><span class="params">(Object o)</span> </span>&#123;</div><div class="line">        IceCream iceCream = (IceCream) o;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.cost - iceCream.cost;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object o)</span></span>&#123;</div><div class="line">        IceCream iceCream = (IceCream) o;</div><div class="line">        </div><div class="line">        <span class="keyword">return</span> iceCream.cost == <span class="keyword">this</span>.cost;</div><div class="line">    &#125;</div><div class="line">        </div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> IceCream[] menu;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> n;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">int</span> m;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Solution</span><span class="params">(IceCream[] menu, <span class="keyword">int</span> n, <span class="keyword">int</span> m)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.menu = menu;</div><div class="line">        Arrays.sort(<span class="keyword">this</span>.menu);</div><div class="line">        <span class="keyword">this</span>.n = n;</div><div class="line">        <span class="keyword">this</span>.m = m;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">binarySearch</span><span class="params">(<span class="keyword">int</span> min, <span class="keyword">int</span> max, <span class="keyword">int</span> search)</span> </span>&#123;</div><div class="line">        </div><div class="line">        <span class="keyword">int</span> middle = (min + max) &gt;&gt; <span class="number">1</span>;</div><div class="line">        </div><div class="line">        <span class="keyword">while</span>(min &lt;= max) &#123;</div><div class="line">            <span class="comment">// Search value is found</span></div><div class="line">            <span class="keyword">if</span>( menu[middle].cost == search ) &#123;</div><div class="line">                <span class="keyword">if</span>(max - min &lt;= <span class="number">1</span> ) &#123;</div><div class="line">                    <span class="keyword">return</span> menu[middle].id;</div><div class="line">                &#125;</div><div class="line">                </div><div class="line">                <span class="comment">// else, continue searching</span></div><div class="line">                max = middle;</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// Else, continue looking for search value</span></div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">if</span> ( menu[middle].cost &lt; search ) &#123;</div><div class="line">                    <span class="comment">// Continue searching right</span></div><div class="line">                    min = middle + <span class="number">1</span>;  </div><div class="line">                &#125;</div><div class="line">                <span class="keyword">else</span> &#123;</div><div class="line">                    <span class="comment">// Continue searching left</span></div><div class="line">                    max = middle - <span class="number">1</span>;</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            <span class="comment">// Set new middle at halfway point</span></div><div class="line">            middle = (min + max) &gt;&gt; <span class="number">1</span>;</div><div class="line">            </div><div class="line">        &#125; <span class="comment">// END WHILE, first &gt; last</span></div><div class="line">        </div><div class="line">        <span class="comment">// No price matching 'search' exists in the menu</span></div><div class="line">        <span class="keyword">return</span> -<span class="number">1</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">solve</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// Search menu for a valid pair of prices</span></div><div class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n - <span class="number">1</span> ; i++) &#123;</div><div class="line">            <span class="comment">// Set desired price that will match the cost at index i</span></div><div class="line">            <span class="keyword">int</span> search = m - menu[i].cost;</div><div class="line"></div><div class="line">            <span class="comment">// If search &lt; menu[i], then no match exists for that cost because the menu array is sorted</span></div><div class="line">            <span class="keyword">if</span>(search &gt;= menu[i].cost) &#123;    </div><div class="line">                </div><div class="line">                <span class="comment">// Search for the desired value starting at the first index to the right of the flavor at index i</span></div><div class="line">                <span class="keyword">int</span> index = binarySearch(i + <span class="number">1</span>, n - <span class="number">1</span>, search);</div><div class="line"></div><div class="line">                <span class="comment">// Index of valid second flavor was returned by binary search </span></div><div class="line">                <span class="keyword">if</span>( index != -<span class="number">1</span> ) &#123;</div><div class="line">                    System.out.println( Math.min(menu[i].id, index) + <span class="string">" "</span> + Math.max(menu[i].id, index));</div><div class="line">                    <span class="keyword">break</span>;</div><div class="line">                &#125;</div><div class="line">                <span class="comment">// Else, continue looping and check the next value.</span></div><div class="line">            &#125;</div><div class="line">        &#125;   </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Scanner scanner = <span class="keyword">new</span> Scanner(System.in);</div><div class="line"> </div><div class="line">        <span class="keyword">int</span> t = scanner.nextInt();</div><div class="line">        <span class="keyword">while</span>(t-- &gt; <span class="number">0</span>) &#123;       </div><div class="line">            <span class="keyword">int</span> m = scanner.nextInt();</div><div class="line">            <span class="keyword">int</span> n = scanner.nextInt(); </div><div class="line">            IceCream[] menu = <span class="keyword">new</span> IceCream[n];</div><div class="line">            </div><div class="line">            <span class="comment">// Fill flavor menu and sort</span></div><div class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</div><div class="line">                menu[i] = <span class="keyword">new</span> IceCream(scanner.nextInt(), i + <span class="number">1</span>);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            Solution solution = <span class="keyword">new</span> Solution(menu, n, m);</div><div class="line">            solution.solve();</div><div class="line">        &#125;   </div><div class="line">        scanner.close();</div><div class="line">    &#125;                       </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h4 id="Hash-Map-Solution"><a href="#Hash-Map-Solution" class="headerlink" title="Hash-Map Solution"></a>Hash-Map Solution</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">flavors</span><span class="params">(m,a)</span>:</span></div><div class="line">    prices = &#123;&#125;</div><div class="line">    <span class="keyword">for</span> idx, p <span class="keyword">in</span> enumerate(a):</div><div class="line">        <span class="keyword">if</span> m-p <span class="keyword">in</span> prices:</div><div class="line">            <span class="keyword">return</span> prices[m-p], idx</div><div class="line">        prices[p] = idx</div><div class="line">    <span class="keyword">return</span> <span class="keyword">None</span></div><div class="line"></div><div class="line">t = int(input().strip())</div><div class="line"><span class="keyword">for</span> a0 <span class="keyword">in</span> range(t):</div><div class="line">    m = int(input().strip())</div><div class="line">    n = int(input().strip())</div><div class="line">    a = list(map(int, input().strip().split(<span class="string">' '</span>)))</div><div class="line">    f1, f2 = flavors(m,a)</div><div class="line">    print(f1+<span class="number">1</span>, f2+<span class="number">1</span>)</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大佬请我喝维他柠檬茶吧 Buy me some Vita lemon tea!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Xingfan Xia WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Xingfan Xia Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Xingfan Xia
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://blog.xiax.ai/2016/11/06/Code Challenges/" title="Technical Interview Practices">http://blog.xiax.ai/2016/11/06/Code Challenges/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Technical-Interview/" rel="tag"># Technical Interview</a>
+          
+            <a href="/tags/Python/" rel="tag"># Python</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/01/the24Game/" rel="next" title="The 24 Game Solver Algorithm and Extensions - a Python Approach 24点算法及延伸 - 一个Python解法">
+                <i class="fa fa-chevron-left"></i> The 24 Game Solver Algorithm and Extensions - a Python Approach 24点算法及延伸 - 一个Python解法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/11/09/Recursive Runtime/" rel="prev" title="Recursive Runtime Study">
+                Recursive Runtime Study <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg"
+                alt="Xingfan Xia" />
+            
+              <p class="site-author-name" itemprop="name">Xingfan Xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xingfanxia" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/ruuuuaaaa/" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam-square"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/xingfanxia/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin-square"></i>Linkedin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xingfanxia@gmail.com" target="_blank" title="E-mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Arrays-Left-Rotation"><span class="nav-number">1.</span> <span class="nav-text">Arrays: Left Rotation</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Strings-Making-Anagrams"><span class="nav-number">2.</span> <span class="nav-text">Strings: Making Anagrams</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hash-Tables-Ransom-Note"><span class="nav-number">3.</span> <span class="nav-text">Hash Tables: Ransom Note</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Linked-Lists-Detect-a-Cycle"><span class="nav-number">4.</span> <span class="nav-text">Linked Lists: Detect a Cycle</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Stacks-Balanced-Brackets"><span class="nav-number">5.</span> <span class="nav-text">Stacks: Balanced Brackets</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Implement-A-Queue-using-Two-Stacks"><span class="nav-number">6.</span> <span class="nav-text">Implement A Queue using Two Stacks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GCD"><span class="nav-number">7.</span> <span class="nav-text">GCD</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Find-max-depth-of-a-tree"><span class="nav-number">8.</span> <span class="nav-text">Find max depth of a tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Flatten-a-tree"><span class="nav-number">9.</span> <span class="nav-text">Flatten a tree</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Validate-BST"><span class="nav-number">10.</span> <span class="nav-text">Validate BST</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Tries"><span class="nav-number">11.</span> <span class="nav-text">Tries</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Merge-sort-to-count-inversions"><span class="nav-number">12.</span> <span class="nav-text">Merge sort to count inversions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Regular-Expression-Matching"><span class="nav-number">13.</span> <span class="nav-text">Regular Expression Matching</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorting-Bubble-Sort"><span class="nav-number">14.</span> <span class="nav-text">Sorting: Bubble Sort</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Sorting-Comparator"><span class="nav-number">15.</span> <span class="nav-text">Sorting: Comparator</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Binary-Search-Ice-Cream-Parlor"><span class="nav-number">16.</span> <span class="nav-text">Binary Search: Ice Cream Parlor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Binary-Search-Approach-By-AllisonP"><span class="nav-number">16.1.</span> <span class="nav-text">Binary Search Approach By AllisonP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Hash-Map-Solution"><span class="nav-number">16.2.</span> <span class="nav-text">Hash-Map Solution</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xingfan Xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xingfanstechblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.xiax.ai/2016/11/06/Code Challenges/';
+          this.page.identifier = '2016/11/06/Code Challenges/';
+          this.page.title = 'Technical Interview Practices';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xingfanstechblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("yYIRJGQTTs0YBloBgezdtg6O-gzGzoHsz", "AUwhPmvz3tXkoh8bcn1CMakc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>

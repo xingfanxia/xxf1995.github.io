@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="en">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Bitcoin,Blockchain,Consensus,Cryptography," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Having a capstone project that I have to finish up and a lot of other random stuffs to deal with; was a little slow on my progress on finishing this course. Anyway, here is lecture 3. Grab the PDF ver">
+<meta name="keywords" content="Bitcoin,Blockchain,Consensus,Cryptography">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bitcoin and Cryptocurrency Technologies Lecture 3 Notes">
+<meta property="og:url" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/index.html">
+<meta property="og:site_name" content="Coder For Fun | Xingfan&#39;s Tech Blog">
+<meta property="og:description" content="Having a capstone project that I have to finish up and a lot of other random stuffs to deal with; was a little slow on my progress on finishing this course. Anyway, here is lecture 3. Grab the PDF ver">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/account-based%20ledger.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/transaction-based%20ledger.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/joint_payments.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/bitcoin%20transaction.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/transaction_metadata.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/transaction_inputs.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/transaction_outputs.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/pay%20to%20hash.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/pay%20to%20script%20hash%202.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/green_address.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/micropayments.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/lock_time.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/block%20structure.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/closeup%20of%20a%20block.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/block_header.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/coinbase.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/bitcoin%20p2p.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/transaction_propagation.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/different%20transaction%20pool.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/block%20propagation%20times.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/blockchain%20size.png">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/hard_fork.jpg">
+<meta property="og:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/soft%20fork%20example.png">
+<meta property="og:updated_time" content="2018-07-19T04:10:14.845Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bitcoin and Cryptocurrency Technologies Lecture 3 Notes">
+<meta name="twitter:description" content="Having a capstone project that I have to finish up and a lot of other random stuffs to deal with; was a little slow on my progress on finishing this course. Anyway, here is lecture 3. Grab the PDF ver">
+<meta name="twitter:image" content="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/account-based%20ledger.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/"/>
+
+
+
+
+
+  <title>Bitcoin and Cryptocurrency Technologies Lecture 3 Notes | Coder For Fun | Xingfan's Tech Blog</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-65724730-3', 'auto');
+  ga('send', 'pageview');
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Coder For Fun | Xingfan's Tech Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description">Random Stuff Randonly Updated</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-projects">
+          <a href="/projects" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-code-fork"></i> <br />
+            
+            projects
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="http://xiax.ai" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            About
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Xingfan Xia">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Coder For Fun | Xingfan's Tech Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Bitcoin and Cryptocurrency Technologies Lecture 3 Notes</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-02-28T16:10:35-08:00">
+                2018-02-28
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Post modified&#58;</span>
+              
+              <time title="Post modified" itemprop="dateModified" datetime="2018-07-18T21:10:14-07:00">
+                2018-07-18
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2018/02/28/blockchain-lecture-3/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2018/02/28/blockchain-lecture-3/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+             <span id="/2018/02/28/blockchain-lecture-3/" class="leancloud_visitors" data-flag-title="Bitcoin and Cryptocurrency Technologies Lecture 3 Notes">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">Visitors&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                <span title="Words count in article">
+                  1,940
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                <span title="Reading time">
+                  12
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Having a capstone project that I have to finish up and a lot of other random stuffs to deal with; was a little slow on my progress on finishing this course. Anyway, here is lecture 3.</p>
+<p>Grab the <a href="http://blog.xiax.ai/skip/mechanics_of_Bitcoin.pdf" target="_blank">PDF version</a> if you want better readability or archive!<br><a id="more"></a></p>
+<h1 id="Mechanics-of-Bitcoin"><a href="#Mechanics-of-Bitcoin" class="headerlink" title="Mechanics of Bitcoin"></a>Mechanics of Bitcoin</h1><h2 id="Part-1-Bitcoin-Transactions"><a href="#Part-1-Bitcoin-Transactions" class="headerlink" title="Part 1 Bitcoin Transactions"></a>Part 1 Bitcoin Transactions</h2><h3 id="Recap-Bitcoin-consensus"><a href="#Recap-Bitcoin-consensus" class="headerlink" title="Recap: Bitcoin consensus"></a>Recap: Bitcoin consensus</h3><p>Bitcoin consensus gives us:</p>
+<ul>
+<li>Append-only ledger</li>
+<li>Decentralized consensus</li>
+<li>Miners to validate transactions</li>
+</ul>
+<p><strong>Assuming a currency exists to motivate miners</strong></p>
+<h3 id="An-account-based-ledger-not-Bitcoin"><a href="#An-account-based-ledger-not-Bitcoin" class="headerlink" title="An account-based ledger (not Bitcoin)"></a>An account-based ledger (not Bitcoin)</h3><p><img src="account-based ledger.png" alt="account-based ledger"></p>
+<ul>
+<li>We have to look over all transactions back there till the beginning of time to figure out if <code>Alice</code> has enough coins.</li>
+<li>Even if we put some data structure to keep track of <code>Alice&#39;s</code> balance, there is a lot more housing keeping despite the blockchain itself.</li>
+<li>So bitcoin does not use this model.</li>
+</ul>
+<h3 id="An-transaction-based-ledger-Bitcoin"><a href="#An-transaction-based-ledger-Bitcoin" class="headerlink" title="An transaction-based ledger (Bitcoin)"></a>An transaction-based ledger (Bitcoin)</h3><p><img src="transaction-based ledger.png" alt="transaction-based ledger"></p>
+<ul>
+<li>Always completely consume the input by giving an equal output.</li>
+<li>Can trace back much easier by looking at the input pointer to check if the transaction is valid</li>
+<li>Implemented with hash pointers</li>
+</ul>
+<h4 id="Joint-Payments"><a href="#Joint-Payments" class="headerlink" title="Joint Payments"></a>Joint Payments</h4><p>​   <img src="joint_payments.png" alt="joint_payments"></p>
+<ul>
+<li>Consume two inputs to joint pay <code>David</code></li>
+<li>So needs two signatures as came from two different people</li>
+</ul>
+<h3 id="Real-deal-a-Bitcoin-transaction-very-very-close-version"><a href="#Real-deal-a-Bitcoin-transaction-very-very-close-version" class="headerlink" title="Real deal: a Bitcoin transaction(very very close version)"></a>Real deal: a Bitcoin transaction(very very close version)</h3><p><img src="bitcoin transaction.png" alt="bitcoin transaction"></p>
+<h4 id="Metadata"><a href="#Metadata" class="headerlink" title="Metadata"></a>Metadata</h4><p><img src="transaction_metadata.png" alt="transaction_metadata"></p>
+<h4 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h4><p><img src="transaction_inputs.png" alt="transaction_inputs"></p>
+<h4 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h4><p><img src="transaction_outputs.png" alt="transaction_outputs"></p>
+<h2 id="Part-2-Bitcoin-Scripts"><a href="#Part-2-Bitcoin-Scripts" class="headerlink" title="Part 2 Bitcoin Scripts"></a>Part 2 Bitcoin Scripts</h2><h3 id="Output-“addresses”-are-really-scripts-scriptPubKey"><a href="#Output-“addresses”-are-really-scripts-scriptPubKey" class="headerlink" title="Output “addresses” are really scripts (scriptPubKey)"></a>Output “addresses” are really <code>scripts</code> (<code>scriptPubKey</code>)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">OP_DUP</div><div class="line">OP_HASH160</div><div class="line">69e02e18......</div><div class="line">OP_EQUALVERIFY OP_CHECKSIG</div></pre></td></tr></table></figure>
+<h3 id="Input-“addresses”-are-also-scripts-scriptSig"><a href="#Input-“addresses”-are-also-scripts-scriptSig" class="headerlink" title="Input “addresses” are also scripts (scriptSig)"></a>Input “addresses” are also <code>scripts</code> (<code>scriptSig</code>)</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">30440220....</div><div class="line">0467d2c9....</div></pre></td></tr></table></figure>
+<h3 id="Verification"><a href="#Verification" class="headerlink" title="Verification"></a>Verification</h3><p><strong>TO VERIFY: Concatenated script must execute completely with no errors</strong></p>
+<h3 id="Bitcoin-scripting-language-“Script”"><a href="#Bitcoin-scripting-language-“Script”" class="headerlink" title="Bitcoin scripting language (“Script”)"></a>Bitcoin scripting language (“Script”)</h3><p>Design goals:</p>
+<ul>
+<li>Built for Bitcoin (inspired by Forth — an old stack-based language)</li>
+<li>Simple, compact</li>
+<li>Support for cryptography</li>
+<li>Stack-based</li>
+<li>Limits on time/memory</li>
+<li>No looping</li>
+<li>Not Turing-complete languages (As designed to prevent over-powerful miners)</li>
+</ul>
+<h3 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h3><p><code>&lt;sig&gt; &lt;pubKey&gt; OP_DUP OP_HASH160 &lt;pubKeyHash?&gt; OP_EQUALVERIFY OP_CHECKSIG</code></p>
+<ul>
+<li><code>&lt;&gt;</code> indicates data instructions<ul>
+<li>If seen just push to stack</li>
+<li>Only memory interaction</li>
+</ul>
+</li>
+<li><code>&lt;sig&gt; &lt;pubKey&gt;</code><ul>
+<li>Are the signature and the public key used to generate that signature</li>
+<li>Specified by the recipient in that script sig component or input script</li>
+</ul>
+</li>
+<li><code>OP_DUP</code> make a copy of top of stack and push to stack</li>
+<li><code>OP_HASH160</code> takes the top of stack and compute a cryptographic hash of it.</li>
+<li><code>&lt;pubKeyHash?&gt;</code> specified by the sender of the coins.</li>
+<li><code>OP_EQUALVERIFY</code><ul>
+<li>Compare top 2 elements of the stack</li>
+<li>If false, throw error and exist</li>
+<li>Otherwise, pop top 2 elements</li>
+</ul>
+</li>
+<li><code>OP_CHECKSIG</code><ul>
+<li>Check signature of the entire transaction</li>
+<li>If true, pop the remaining elements of the stack <code>&lt;sig&gt; &lt;pubKey&gt;</code></li>
+<li>Otherwise, throw error</li>
+</ul>
+</li>
+</ul>
+<p>If we have no errors, we simply return True. Every Bitcoin script has only 2 outcomes: <code>Successful</code> or <code>Error</code>. If any error occurs, the transaction is invalid and should not be accepted.</p>
+<h3 id="Bitcoin-script-instructions"><a href="#Bitcoin-script-instructions" class="headerlink" title="Bitcoin script instructions"></a>Bitcoin script instructions</h3><p>256 opcodes total (15 disabled, 75 reserved)</p>
+<ul>
+<li>Arithmetic</li>
+<li>If/then</li>
+<li>Logic/data handling</li>
+<li>Crypto instructions<ul>
+<li>Hashes</li>
+<li>Signature verification</li>
+<li><strong>Multi-signature verification</strong><ul>
+<li>Built-in support for joint sigatures</li>
+<li>Specify <code>n</code> pubKeys</li>
+<li>Speicify <code>t</code> — a threshold </li>
+<li>Verification requires <code>t</code> signatures (<code>t of n</code> should be valid)</li>
+<li><strong>BUG ALERT:</strong> Extra data value posed from the stack and ignored</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bitcoin-scripts-in-practice-as-of-2014"><a href="#Bitcoin-scripts-in-practice-as-of-2014" class="headerlink" title="Bitcoin scripts in practice (as of 2014)"></a>Bitcoin scripts in practice (as of 2014)</h3><ul>
+<li>Most nodes whitelist now scripts</li>
+<li><code>99.9%</code> are simple signature checks (like shown above in example)</li>
+<li><code>~0.01%</code> are <code>MULTISIG</code></li>
+<li><code>~0.01%</code> are <code>Pay-to-Script-Hash</code></li>
+<li>Remainder are errors, <code>proof-of-burn</code><ul>
+<li><code>proof-of-burn</code> is never going to redeem</li>
+<li>To write arbitrary data into the blockchain</li>
+<li>Destroy a small amount of currency to store a little bit of information on the network forever</li>
+<li>To destroy coins to get coins in the new system</li>
+</ul>
+</li>
+</ul>
+<h3 id="Pay-to-Script-Hash"><a href="#Pay-to-Script-Hash" class="headerlink" title="Pay-to-Script-Hash"></a><code>Pay-to-Script-Hash</code></h3><h4 id="Should-senders-specify-scripts"><a href="#Should-senders-specify-scripts" class="headerlink" title="Should senders specify scripts?"></a>Should senders specify scripts?</h4><p><img src="pay to hash.png" alt="pay to hash"></p>
+<ul>
+<li><p>As consumers we want to the transaction is easy</p>
+</li>
+<li><p>So instead we allow pay to a hash address instead of <code>pubKey</code></p>
+</li>
+<li><p>Idea: use the hash of redemption script</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;signature&gt;</div><div class="line">&lt;&lt;pubkey&gt; OP_CHECKSIG&gt; #contains a second step that deserialized to be a script itself</div><div class="line">------------------</div><div class="line">OP_HASH160</div><div class="line">&lt;hash of redemption script&gt;</div><div class="line">OP_EQUAL</div></pre></td></tr></table></figure>
+</li>
+<li><p>Added after the original specification</p>
+</li>
+<li><p>Benefits:</p>
+<ul>
+<li>Removes the complexity of sender(consumer), only needs to send to an address</li>
+<li>Efficiency gains we will talk later<img src="pay to script hash 2.png" alt="pay to script hash 2"></li>
+</ul>
+</li>
+</ul>
+<h2 id="Part-3-Applications-of-Bitcoin-Scripts"><a href="#Part-3-Applications-of-Bitcoin-Scripts" class="headerlink" title="Part 3 Applications of Bitcoin Scripts"></a>Part 3 Applications of Bitcoin Scripts</h2><h3 id="Example-1-Escrow-Transactions"><a href="#Example-1-Escrow-Transactions" class="headerlink" title="Example 1: Escrow Transactions"></a>Example 1: Escrow Transactions</h3><ul>
+<li><p><strong>PROBLEM: <code>Alice</code> wants to buy online from<code>Bob</code>. <code>Alice</code> doesn’t want to pay until after <code>Bob</code> ships. <code>Bob</code> doesn’t want to shop until after <code>Alice</code>pays.</strong></p>
+</li>
+<li><p>Solutions (Introduce a third party <code>Judy</code> with <code>MULTISIG</code>):</p>
+<ul>
+<li><p><code>Alice</code> signs the statement: Pay <code>x</code> to <strong>2-of-3</strong> of <code>Alice, Bob, Judy</code> with <code>MULTISIG</code></p>
+</li>
+<li><p>If<code>Alice</code> and <code>Bob</code> are both honest</p>
+<ul>
+<li>Alice and Bob together sign the statement <code>Pay x to Bob</code></li>
+<li>The good thing here is <code>Judy</code> doesn’t need to get involved in this case</li>
+</ul>
+</li>
+<li><p>Otherwise, in case someone cheated</p>
+<ul>
+<li><code>Alice</code>and <code>Bob</code> is never going to sign a statement together to <code>pay to Bob</code></li>
+<li><code>Alice</code>and <code>Bob</code> is never going to sign a statement together to <code>pay to Alice</code></li>
+<li>Now <code>Judy</code> comes along and decide which one has cheated<ul>
+<li>Sign the payment with <code>Bob</code> to <code>Bob</code> if <code>Judy</code> think <code>Alice</code> is cheating</li>
+<li>Otherwise, Sign the payment with <code>Alice</code> to <code>Alice</code> if <code>Judy</code> think <code>Bob</code> is cheating</li>
+</ul>
+</li>
+</ul>
+<p>Judy has the full power here, the nice thing here is that she only needs to get involved when there is a dispute.</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="Example-2-Green-addresses"><a href="#Example-2-Green-addresses" class="headerlink" title="Example 2: Green addresses"></a>Example 2: Green addresses</h3><ul>
+<li><strong>PROBLEM: Alice wants to pay bob. Bob can’t wait 6 verifications to guard against double-spends or is offline completely.</strong> </li>
+</ul>
+<p><img src="green_address.png" alt="green_address"></p>
+<ul>
+<li>Trust a third party <code>Bank</code> to transfer the payment</li>
+</ul>
+<h3 id="Example-3-Efficient-Micro-payments"><a href="#Example-3-Efficient-Micro-payments" class="headerlink" title="Example 3: Efficient Micro-payments"></a>Example 3: Efficient Micro-payments</h3><ul>
+<li><p><strong>PROBLEM:</strong> Alice wants to pay Bob for each minute of phone service. She doesn’t want to incur a transaction fee every time.</p>
+</li>
+<li><p>Combine small payments into a big new payment<img src="micropayments.png" alt="micropayments"></p>
+</li>
+<li><p>All these transactions could be double spends if signed by both Alice and Bob</p>
+</li>
+<li><p>Bob sign only the last transaction if Bob is honest</p>
+</li>
+<li><p>What if Bob never signs? <strong>This is when <code>lock_time</code> comes into play</strong></p>
+<p><strong><code>loc_time</code> is the block index or real-word timestamp before which this transaction can’t be published</strong>, like a timed refund.</p>
+<p><img src="lock_time.png" alt="lock_time"></p>
+</li>
+</ul>
+<h3 id="More-advanced-scripts"><a href="#More-advanced-scripts" class="headerlink" title="More advanced scripts"></a>More advanced scripts</h3><ul>
+<li>Multiplayer lotteries</li>
+<li>Hash pre-image challenges</li>
+<li>Coin-Swapping protocols<ul>
+<li>More on this in lecture on anonymity!</li>
+</ul>
+</li>
+<li>“Smart contracts”</li>
+</ul>
+<h2 id="Part-4-Bitcoin-Blocks"><a href="#Part-4-Bitcoin-Blocks" class="headerlink" title="Part 4 Bitcoin Blocks"></a>Part 4 Bitcoin Blocks</h2><h3 id="Why-bundle-transactions-together"><a href="#Why-bundle-transactions-together" class="headerlink" title="Why bundle transactions together"></a>Why bundle transactions together</h3><ul>
+<li>Single unit of work for miners</li>
+<li>Limit length of hash-chain of blocks<ul>
+<li>Faster to verify history</li>
+</ul>
+</li>
+</ul>
+<h3 id="Bitcoin-block-structure-high-level"><a href="#Bitcoin-block-structure-high-level" class="headerlink" title="Bitcoin block structure (high-level)"></a>Bitcoin block structure (high-level)</h3><p><img src="block structure.png" alt="block structure"></p>
+<h3 id="Close-up-look-of-a-Block"><a href="#Close-up-look-of-a-Block" class="headerlink" title="Close-up look of a Block"></a>Close-up look of a Block</h3><p><img src="closeup of a block.png" alt="closeup of a block"></p>
+<h4 id="Block-header"><a href="#Block-header" class="headerlink" title="Block header"></a>Block header</h4><p><img src="block_header.png" alt="block_header"></p>
+<ul>
+<li>Here the hash of block has to start with a number of 0s</li>
+<li>Only header is hashed during mining</li>
+<li>Only includes the root node of the Merkle tree</li>
+</ul>
+<h4 id="Coinbase-transaction"><a href="#Coinbase-transaction" class="headerlink" title="Coinbase transaction"></a>Coinbase transaction</h4><p><img src="coinbase.png" alt="coinbase"></p>
+<ul>
+<li><strong><code>Coinbase</code></strong>: a special parameter to put any arbitrary info, no limit what miners put there</li>
+</ul>
+<h2 id="Part-5-The-Bitcoin-Network"><a href="#Part-5-The-Bitcoin-Network" class="headerlink" title="Part 5 The Bitcoin Network"></a>Part 5 The Bitcoin Network</h2><h3 id="Bitcoin-P2P-network"><a href="#Bitcoin-P2P-network" class="headerlink" title="Bitcoin P2P network"></a>Bitcoin P2P network</h3><ul>
+<li>Ad-hoc protocol (runs on TCP port <code>8333</code>)</li>
+<li>Ad-hoc network with random topology</li>
+<li>All nodes are equal</li>
+<li>New nodes can join at any time</li>
+<li>Forget non-responding nodes after 3hr</li>
+</ul>
+<h3 id="Joining-the-Bitcoin-P2P-network"><a href="#Joining-the-Bitcoin-P2P-network" class="headerlink" title="Joining the Bitcoin P2P network"></a>Joining the Bitcoin P2P network</h3><p><img src="bitcoin p2p.png" alt="bitcoin p2p"></p>
+<ol>
+<li>Find a <code>seed node</code> in the network</li>
+<li>Talk to <code>seed node</code> and request its peers</li>
+<li>Talk to those peers recursively until you have a list of nodes to connect to</li>
+<li>Will end up with a random set o nodes connected to</li>
+</ol>
+<h3 id="Transaction-propagation-flooding"><a href="#Transaction-propagation-flooding" class="headerlink" title="Transaction propagation (flooding)"></a>Transaction propagation (flooding)</h3><p><img src="transaction_propagation.png" alt="transaction_propagation"></p>
+<ul>
+<li>Each node has a pool of transactions they heard about</li>
+<li>Suppose node 4 heard a transaction <code>From Alice to Bob</code></li>
+<li>Node 4 talks to its peers and this is carried on recursively</li>
+<li>It won’t loop around the network forever as transaction can be uniquely identified by hash</li>
+<li>This is often referred as the <code>gossip protocol</code></li>
+</ul>
+<h3 id="Node-should-I-relay-a-proposed-transaction"><a href="#Node-should-I-relay-a-proposed-transaction" class="headerlink" title="Node: should I relay a proposed transaction?"></a>Node: should I relay a proposed transaction?</h3><ul>
+<li><p>Transaction valid with current blockchain</p>
+</li>
+<li><p>(default) script matches a whitelist</p>
+<ul>
+<li>Avoid unusual scripts</li>
+</ul>
+</li>
+<li><p>Haven’t seen before</p>
+<ul>
+<li>Avoid infinite loops</li>
+</ul>
+</li>
+<li><p>Doesn’t conflict with others I’ve relayed</p>
+<ul>
+<li>First come first served!</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Avoid double-spends</li>
+</ul>
+<ul>
+<li>These <code>avoids</code> are just sanity checks, some nodes <strong>may ignore them</strong></li>
+</ul>
+<h3 id="Nodes-may-differ-on-transaction-pool-Race-conditions"><a href="#Nodes-may-differ-on-transaction-pool-Race-conditions" class="headerlink" title="Nodes may differ on transaction pool (Race conditions)"></a>Nodes may differ on transaction pool (Race conditions)</h3><p><img src="different transaction pool.png" alt="different transaction pool"></p>
+<p>Transactions or blocks may conflict</p>
+<ul>
+<li>Default behavior: accept what you hear first</li>
+<li>Network position matters</li>
+<li>When one of the conflicting  transactions made into the block then other nodes know their transactions are never going to make it to the block, they will discard it (as they are double spends now)</li>
+<li><strong>Miners may implement other logic</strong><ul>
+<li>Stay tune for lecture on mining.</li>
+</ul>
+</li>
+</ul>
+<h3 id="Block-propagation-nearly-identical"><a href="#Block-propagation-nearly-identical" class="headerlink" title="Block propagation nearly identical"></a>Block propagation nearly identical</h3><p>Relay a new block when you hear it if :</p>
+<ul>
+<li>Block meets the hash target</li>
+<li>Block has all valid transactions<ul>
+<li>Run all scripts even if you wouldn’t relay</li>
+</ul>
+</li>
+<li>Block builds on current longest chain<ul>
+<li>Avoid forks</li>
+</ul>
+</li>
+</ul>
+<h3 id="Propagation-Times"><a href="#Propagation-Times" class="headerlink" title="Propagation Times"></a>Propagation Times</h3><p><img src="block propagation times.png" alt="block propagation times"></p>
+<ul>
+<li>Average at 30s which is really slow in Internet</li>
+<li>Node Topology is not optimized for speed</li>
+<li>Decentralized is ensured but sacrificed in terms of speed/efficiency</li>
+</ul>
+<h3 id="How-big-is-the-network"><a href="#How-big-is-the-network" class="headerlink" title="How big is the network"></a>How big is the network</h3><ul>
+<li><p>Impossible to measure exactly</p>
+</li>
+<li><p>Estimates: up to 1M IP address/month</p>
+</li>
+<li><p>Only about 5~10k full nodes</p>
+<ul>
+<li>Permanently connected</li>
+<li>Fully-validate<ul>
+<li>Permanently connected</li>
+<li>Store entire block chain</li>
+<li>Active network to hear and forward every node/transaction</li>
+<li>Tracking the UTXO set<ul>
+<li>Stands for Unspent Transaction Output<ul>
+<li>Everything else can be sorted on disk</li>
+</ul>
+</li>
+<li>Currently ~12M UTXOs<ul>
+<li>Out of 44M transactions</li>
+</ul>
+</li>
+<li>Small enough to fit into RAM (less than 1GB for now)</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>This number is dropping</li>
+</ul>
+</li>
+<li><p>Vast majority are instead <code>lightweight nodes</code>, or <code>simple payment verification clients</code> (often referred as <code>Thin/SPV clients</code> )</p>
+<ul>
+<li>Some personal wallet can just be <code>simple payment verification clients</code>, only checking if transactions coming to you are valid</li>
+<li>Store block headers only</li>
+<li>Request transactions as needed<ul>
+<li>To verify incoming payment</li>
+</ul>
+</li>
+<li>Trust fully-validating nodes<ul>
+<li>Not bad security tradeoff</li>
+<li>As miners will always make sure the node is valid so it has a chance to get included in the main chain</li>
+</ul>
+</li>
+<li>1000x cost savings (23MB v.s. 20GB)</li>
+</ul>
+</li>
+<li><p>Size of entire blockchain is about 20GB</p>
+<p><img src="blockchain size.png" alt="blockchain size"></p>
+</li>
+</ul>
+<h2 id="Part-6-Limitations-amp-Improvements"><a href="#Part-6-Limitations-amp-Improvements" class="headerlink" title="Part 6 Limitations &amp; Improvements"></a>Part 6 Limitations &amp; Improvements</h2><h3 id="Hard-coded-limits-in-Bitcoin"><a href="#Hard-coded-limits-in-Bitcoin" class="headerlink" title="Hard-coded limits in Bitcoin"></a>Hard-coded limits in Bitcoin</h3><ul>
+<li>10 min average creation time per block</li>
+<li>1M bytes in one block</li>
+<li>20,000 signature operatios per block</li>
+<li>These affect enomoic balance of power too much to change now, even though it might not be a wise choice.<ul>
+<li>100M <em>satoshi</em> per bitcoin (1 bitcoin can be divided into the 100M of smaller units called satoshi)</li>
+<li>21M total bitcoins maximum</li>
+<li>mining reward of $\frac{50}{n^i}$ bitcoins where $i$ increases every 4 years</li>
+</ul>
+</li>
+</ul>
+<h3 id="Throughout-limits-in-Bitcoin"><a href="#Throughout-limits-in-Bitcoin" class="headerlink" title="Throughout limits in Bitcoin"></a>Throughout limits in Bitcoin</h3><ul>
+<li>1M bytes/block (10min)</li>
+<li>> 250 bytes per transaction</li>
+<li>7 transactions per sec (which is a really small volume)<ul>
+<li>compare to</li>
+<li>VISA: 2000~10000 transactions per sec</li>
+<li>Paypal: 50~100 transactions per sec</li>
+</ul>
+</li>
+</ul>
+<h3 id="Cryptographic-limits"><a href="#Cryptographic-limits" class="headerlink" title="Cryptographic limits"></a>Cryptographic limits</h3><ul>
+<li>Only 1 signature algorithm (ECDSA/P256)</li>
+<li>Hardcoded hash functions</li>
+<li>Crypto primitives might break by 2040</li>
+</ul>
+<h3 id="“Hard-forking”-changes-to-Bitcoin"><a href="#“Hard-forking”-changes-to-Bitcoin" class="headerlink" title="“Hard-forking” changes to Bitcoin"></a>“Hard-forking” changes to Bitcoin</h3><ul>
+<li><strong>Def:</strong> So what would it look to make a change like this where we just said, we had a problem with Bitcoin, we’re going to release a new version of the software, and everybody is going to have to switch. This is referred as a <code>hard-forking</code> change.</li>
+<li>We can’t be sure that every node in the network would upgrade</li>
+<li>Some nodes might refuse the new block and hence creates a diverge</li>
+<li><img src="hard_fork.jpg" alt="hard_fork"></li>
+</ul>
+<h3 id="Soft-forks"><a href="#Soft-forks" class="headerlink" title="Soft forks"></a>Soft forks</h3><ul>
+<li>Observation: we can add new features which only limit the set of valid transactions. i.e. only more strict and limiting rules</li>
+<li>Need majority of nodes to enforce new rules</li>
+<li>Old nodes will approve.</li>
+<li><p>Risk: old nodes might min now-invalid blocks which will be rejected by the network</p>
+<h3 id="Soft-fork-example-pay-to-script-hash"><a href="#Soft-fork-example-pay-to-script-hash" class="headerlink" title="Soft fork example: pay to script hash"></a>Soft fork example: pay to script hash</h3></li>
+</ul>
+<p><img src="soft fork example.png" alt="soft fork example"></p>
+<h3 id="Soft-fork-possiblities"><a href="#Soft-fork-possiblities" class="headerlink" title="Soft fork possiblities"></a>Soft fork possiblities</h3><ul>
+<li>New signature schemes </li>
+<li>Extra per-block metadata<ul>
+<li>Shove in the coinbase parameter</li>
+<li>Commit to UTXO tree in each block</li>
+</ul>
+</li>
+</ul>
+<h3 id="Hard-forks"><a href="#Hard-forks" class="headerlink" title="Hard forks"></a>Hard forks</h3><ul>
+<li>New op codes</li>
+<li>Changes to size limits</li>
+<li>Changes to mining rate</li>
+<li>Many small bug fixes</li>
+</ul>
+<p><strong><u>Currently seem very unlikely to happen, but will get solved in other alternative coins!</u></strong></p>
+<h3 id="Human-Beings-aren’t-Bitcoin-nodes"><a href="#Human-Beings-aren’t-Bitcoin-nodes" class="headerlink" title="Human Beings aren’t Bitcoin nodes"></a>Human Beings aren’t Bitcoin nodes</h3><ul>
+<li>How do people interact with the network?</li>
+<li>How do people exchange bitcoins for cash?</li>
+<li>How do people securely store bitcoins?</li>
+</ul>
+<p><strong><u>Currency needs to work for people, not for nodes or softwares.</u></strong></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>大佬请我喝维他柠檬茶吧 Buy me some Vita lemon tea!</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="Xingfan Xia WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="Xingfan Xia Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:</strong>
+    Xingfan Xia
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link:</strong>
+    <a href="http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/" title="Bitcoin and Cryptocurrency Technologies Lecture 3 Notes">http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice: </strong>
+    All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> unless stating additionally.
+  </li>
+</ul>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Bitcoin/" rel="tag"># Bitcoin</a>
+          
+            <a href="/tags/Blockchain/" rel="tag"># Blockchain</a>
+          
+            <a href="/tags/Consensus/" rel="tag"># Consensus</a>
+          
+            <a href="/tags/Cryptography/" rel="tag"># Cryptography</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/13/blockchain-notes-1/" rel="next" title="Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes">
+                <i class="fa fa-chevron-left"></i> Bitcoin and Cryptocurrency Technologies Lecture 1&2 Notes
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="http://7xqpdw.com1.z0.glb.clouddn.com/321_55f4fb5bc15dd.jpg"
+                alt="Xingfan Xia" />
+            
+              <p class="site-author-name" itemprop="name">Xingfan Xia</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/xingfanxia" target="_blank" title="Github">
+                      
+                        <i class="fa fa-fw fa-github"></i>Github</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="http://steamcommunity.com/id/ruuuuaaaa/" target="_blank" title="Steam">
+                      
+                        <i class="fa fa-fw fa-steam-square"></i>Steam</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.linkedin.com/in/xingfanxia/" target="_blank" title="Linkedin">
+                      
+                        <i class="fa fa-fw fa-linkedin-square"></i>Linkedin</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:xingfanxia@gmail.com" target="_blank" title="E-mail">
+                      
+                        <i class="fa fa-fw fa-globe"></i>E-mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mechanics-of-Bitcoin"><span class="nav-number">1.</span> <span class="nav-text">Mechanics of Bitcoin</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-1-Bitcoin-Transactions"><span class="nav-number">1.1.</span> <span class="nav-text">Part 1 Bitcoin Transactions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Recap-Bitcoin-consensus"><span class="nav-number">1.1.1.</span> <span class="nav-text">Recap: Bitcoin consensus</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#An-account-based-ledger-not-Bitcoin"><span class="nav-number">1.1.2.</span> <span class="nav-text">An account-based ledger (not Bitcoin)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#An-transaction-based-ledger-Bitcoin"><span class="nav-number">1.1.3.</span> <span class="nav-text">An transaction-based ledger (Bitcoin)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Joint-Payments"><span class="nav-number">1.1.3.1.</span> <span class="nav-text">Joint Payments</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Real-deal-a-Bitcoin-transaction-very-very-close-version"><span class="nav-number">1.1.4.</span> <span class="nav-text">Real deal: a Bitcoin transaction(very very close version)</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Metadata"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">Metadata</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Input"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">Input</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Output"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">Output</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-2-Bitcoin-Scripts"><span class="nav-number">1.2.</span> <span class="nav-text">Part 2 Bitcoin Scripts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Output-“addresses”-are-really-scripts-scriptPubKey"><span class="nav-number">1.2.1.</span> <span class="nav-text">Output “addresses” are really scripts (scriptPubKey)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Input-“addresses”-are-also-scripts-scriptSig"><span class="nav-number">1.2.2.</span> <span class="nav-text">Input “addresses” are also scripts (scriptSig)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Verification"><span class="nav-number">1.2.3.</span> <span class="nav-text">Verification</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-scripting-language-“Script”"><span class="nav-number">1.2.4.</span> <span class="nav-text">Bitcoin scripting language (“Script”)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example"><span class="nav-number">1.2.5.</span> <span class="nav-text">Example</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-script-instructions"><span class="nav-number">1.2.6.</span> <span class="nav-text">Bitcoin script instructions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-scripts-in-practice-as-of-2014"><span class="nav-number">1.2.7.</span> <span class="nav-text">Bitcoin scripts in practice (as of 2014)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Pay-to-Script-Hash"><span class="nav-number">1.2.8.</span> <span class="nav-text">Pay-to-Script-Hash</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Should-senders-specify-scripts"><span class="nav-number">1.2.8.1.</span> <span class="nav-text">Should senders specify scripts?</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-3-Applications-of-Bitcoin-Scripts"><span class="nav-number">1.3.</span> <span class="nav-text">Part 3 Applications of Bitcoin Scripts</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-1-Escrow-Transactions"><span class="nav-number">1.3.1.</span> <span class="nav-text">Example 1: Escrow Transactions</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-2-Green-addresses"><span class="nav-number">1.3.2.</span> <span class="nav-text">Example 2: Green addresses</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Example-3-Efficient-Micro-payments"><span class="nav-number">1.3.3.</span> <span class="nav-text">Example 3: Efficient Micro-payments</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-advanced-scripts"><span class="nav-number">1.3.4.</span> <span class="nav-text">More advanced scripts</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-4-Bitcoin-Blocks"><span class="nav-number">1.4.</span> <span class="nav-text">Part 4 Bitcoin Blocks</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Why-bundle-transactions-together"><span class="nav-number">1.4.1.</span> <span class="nav-text">Why bundle transactions together</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-block-structure-high-level"><span class="nav-number">1.4.2.</span> <span class="nav-text">Bitcoin block structure (high-level)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Close-up-look-of-a-Block"><span class="nav-number">1.4.3.</span> <span class="nav-text">Close-up look of a Block</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Block-header"><span class="nav-number">1.4.3.1.</span> <span class="nav-text">Block header</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Coinbase-transaction"><span class="nav-number">1.4.3.2.</span> <span class="nav-text">Coinbase transaction</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-5-The-Bitcoin-Network"><span class="nav-number">1.5.</span> <span class="nav-text">Part 5 The Bitcoin Network</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Bitcoin-P2P-network"><span class="nav-number">1.5.1.</span> <span class="nav-text">Bitcoin P2P network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Joining-the-Bitcoin-P2P-network"><span class="nav-number">1.5.2.</span> <span class="nav-text">Joining the Bitcoin P2P network</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Transaction-propagation-flooding"><span class="nav-number">1.5.3.</span> <span class="nav-text">Transaction propagation (flooding)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Node-should-I-relay-a-proposed-transaction"><span class="nav-number">1.5.4.</span> <span class="nav-text">Node: should I relay a proposed transaction?</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Nodes-may-differ-on-transaction-pool-Race-conditions"><span class="nav-number">1.5.5.</span> <span class="nav-text">Nodes may differ on transaction pool (Race conditions)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Block-propagation-nearly-identical"><span class="nav-number">1.5.6.</span> <span class="nav-text">Block propagation nearly identical</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Propagation-Times"><span class="nav-number">1.5.7.</span> <span class="nav-text">Propagation Times</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#How-big-is-the-network"><span class="nav-number">1.5.8.</span> <span class="nav-text">How big is the network</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Part-6-Limitations-amp-Improvements"><span class="nav-number">1.6.</span> <span class="nav-text">Part 6 Limitations & Improvements</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Hard-coded-limits-in-Bitcoin"><span class="nav-number">1.6.1.</span> <span class="nav-text">Hard-coded limits in Bitcoin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Throughout-limits-in-Bitcoin"><span class="nav-number">1.6.2.</span> <span class="nav-text">Throughout limits in Bitcoin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cryptographic-limits"><span class="nav-number">1.6.3.</span> <span class="nav-text">Cryptographic limits</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#“Hard-forking”-changes-to-Bitcoin"><span class="nav-number">1.6.4.</span> <span class="nav-text">“Hard-forking” changes to Bitcoin</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Soft-forks"><span class="nav-number">1.6.5.</span> <span class="nav-text">Soft forks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Soft-fork-example-pay-to-script-hash"><span class="nav-number">1.6.6.</span> <span class="nav-text">Soft fork example: pay to script hash</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Soft-fork-possiblities"><span class="nav-number">1.6.7.</span> <span class="nav-text">Soft fork possiblities</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hard-forks"><span class="nav-number">1.6.8.</span> <span class="nav-text">Hard forks</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Human-Beings-aren’t-Bitcoin-nodes"><span class="nav-number">1.6.9.</span> <span class="nav-text">Human Beings aren’t Bitcoin nodes</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2016 &mdash; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Xingfan Xia</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://xingfanstechblog.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://blog.xiax.ai/2018/02/28/blockchain-lecture-3/';
+          this.page.identifier = '2018/02/28/blockchain-lecture-3/';
+          this.page.title = 'Bitcoin and Cryptocurrency Technologies Lecture 3 Notes';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://xingfanstechblog.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("yYIRJGQTTs0YBloBgezdtg6O-gzGzoHsz", "AUwhPmvz3tXkoh8bcn1CMakc");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+  
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+  <script type="text/javascript" src="/js/src/js.cookie.js?v=5.1.3"></script>
+  <script type="text/javascript" src="/js/src/scroll-cookie.js?v=5.1.3"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+
+  
+
+</body>
+</html>
